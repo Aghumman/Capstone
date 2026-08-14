@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Parser</title>
+  </head>
+  <body>
+    <h1>Resume Parser</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="resume" accept=".pdf,.docx" required />
+      <button type="submit">Upload Resume</button>
+    </form>
+
+    {% if contact_info %}
+
+    <h2>Contact Information</h2>
+
+    <p><strong>Email:</strong> {{ contact_info.email or "Not Found" }}</p>
+
+    <p><strong>Phone:</strong> {{ contact_info.phone or "Not Found" }}</p>
+
+    <p><strong>LinkedIn:</strong> {{ contact_info.linkedin or "Not Found" }}</p>
+
+    <p><strong>GitHub:</strong> {{ contact_info.github or "Not Found" }}</p>
+
+    {% endif %} {% if extracted_text %}
+
+    <h2>Extracted Resume Text</h2>
+
+    <textarea rows="15" cols="100" readonly>{{ extracted_text }}</textarea>
+
+    {% endif %} {% if tokens %}
+
+    <h2>Tokenized Words</h2>
+
+    <p>{{ tokens|join(", ") }}</p>
+
+    {% endif %}
+  </body>
+</html>
