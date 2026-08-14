@@ -124,7 +124,7 @@ CREATE TABLE skill (
         MINVALUE 700000
         MAXVALUE 999999
     ) PRIMARY KEY,
-    name VARCHAR(20),
+    name VARCHAR(100),
     resume_id INT,
     FOREIGN KEY(resume_id) REFERENCES resume(id)
 );
