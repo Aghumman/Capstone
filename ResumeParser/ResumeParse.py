@@ -4,6 +4,7 @@ import pdfplumber
 from docx import Document
 import spacy
 import re
+import psycopg2
 
 
 app = Flask(__name__)
@@ -355,6 +356,75 @@ def parse_resume_api():
         return jsonify({
             "error": str(error)
         }), 500
+
+# 
+DB_URI = "postgresql://postgres:Jn&3Tv5a8KJkDn2@db.sbowuvozgfrjsezqiqfa.supabase.co:5432/postgres"
+
+def insert_data(data):
+    if hasattr(data, 'get_json'):
+        data = data.get_json()
+
+    name = data.get("name")
+    email = data.get("email")
+    phone = data.get("phone")
+    skills = data.get("skills", [])
+
+    # name = "test"
+    # email = "test@gmail.com"
+    # phone = "000-000-0000"
+    # skills = ["test1", "test2", "test3"]
+
+    conn = None
+    try:
+        conn = psycopg2.connect(DB_URI)
+        with conn.cursor() as cursor:
+
+            # look up candidate in database
+            cursor.execute("""
+                SELECT id FROM candidates
+                WHERE email = %s;
+            """, (email,))
+            candidate = cursor.fetchone()
+
+            # take candidate id is exist, else create new candidate and get id
+            if candidate:
+                candidate_id = candidate[0]
+            else:
+                cursor.execute("""
+                    INSERT INTO candidates (name, phone, email)
+                    VALUES (%s, %s, %s)
+                    RETURNING id;
+                """, (name, phone, email))
+                candidate_id = cursor.fetchone()[0]
+
+            # new resume into db
+            cursor.execute("""
+                INSERT INTO resume (candidate_id)
+                VALUES (%s)
+                RETURNING id;
+            """, (candidate_id,))
+            resume_id = cursor.fetchone()[0]
+
+            # for each skill, insert to db
+            for skill in skills:
+                cursor.execute("""
+                    INSERT INTO skill (name, resume_id)
+                    VALUES (%s, %s)
+                    RETURNING id;
+                """, (skill, resume_id,))
+
+            conn.commit()
+
+            return "Skills sucessfully saved"
+
+    except Exception as error:
+        return jsonify({
+            "error": str(error)
+        }), 500
+
+    finally:
+        cursor.close()
+        conn.close()
 
 
 if __name__ == "__main__":
