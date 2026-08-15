@@ -347,6 +347,14 @@ def parse_resume_api():
             "skills": entities["SKILL"],
         }
 
+        database_result = insert_data(results)
+
+        if isinstance(database_result, tuple):
+            return database_result
+
+        results["candidate_id"] = database_result["candidate_id"]
+        results["resume_id"] = database_result["resume_id"]
+
         print("\nAPI PARSE RESULTS:")
         print(results)
 
@@ -368,6 +376,9 @@ def insert_data(data):
     email = data.get("email")
     phone = data.get("phone")
     skills = data.get("skills", [])
+    job_titles = data.get("job_titles", [])
+    schools = data.get("schools", [])
+    degrees = data.get("degrees", [])
 
     # name = "test"
     # email = "test@gmail.com"
@@ -381,7 +392,7 @@ def insert_data(data):
 
             # look up candidate in database
             cursor.execute("""
-                SELECT id FROM candidates
+                SELECT id FROM candidate
                 WHERE email = %s;
             """, (email,))
             candidate = cursor.fetchone()
@@ -391,7 +402,7 @@ def insert_data(data):
                 candidate_id = candidate[0]
             else:
                 cursor.execute("""
-                    INSERT INTO candidates (name, phone, email)
+                    INSERT INTO candidate (name, phone, email)
                     VALUES (%s, %s, %s)
                     RETURNING id;
                 """, (name, phone, email))
@@ -413,18 +424,42 @@ def insert_data(data):
                     RETURNING id;
                 """, (skill, resume_id,))
 
+            for job_title in job_titles:
+                cursor.execute("""
+                    INSERT INTO resume_job_title (title, resume_id)
+                    VALUES (%s, %s);
+                """, (job_title, resume_id))    
+
+
+            max_education_count = max(len(schools), len(degrees))
+
+            for i in range(max_education_count):
+                school = schools[i] if i < len(schools) else None
+                degree = degrees[i] if i < len(degrees) else None
+
+                cursor.execute("""
+                INSERT INTO education (school, degree, resume_id)
+                VALUES (%s, %s, %s);
+                """, (school, degree, resume_id))
+
             conn.commit()
 
-            return "Skills sucessfully saved"
+            return {
+                "candidate_id": candidate_id,
+                "resume_id": resume_id
+            }
 
     except Exception as error:
+        if conn is not None:
+            conn.rollback()
+
         return jsonify({
-            "error": str(error)
+        "error": str(error)
         }), 500
 
     finally:
-        cursor.close()
-        conn.close()
+        if conn is not None:
+            conn.close()
 
 
 if __name__ == "__main__":
