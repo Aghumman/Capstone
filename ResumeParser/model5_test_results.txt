@@ -1,0 +1,1333 @@
+======================================================================
+FILE: test1.pdf
+======================================================================
+
+JOB_TITLE:
+- Civil Legal Advocate
+- Minnesota Canvasser
+- Office Assistant
+
+SCHOOL:
+- University of Minnesota-Twin Cities
+
+DEGREE:
+- Bachelor of Arts in Political Science
+- Minors: Business Law & Anthropology
+
+SKILL:
+- Minneapolis
+- Assist clients
+- filing process
+- providing support and deepening
+- understanding of legal processes
+- Provided emotional support and legal information
+- domestic violence
+- informed decisions
+- Worked door-to-door
+- Parenthood issue campaigns
+- increasing public awareness
+- mobilizing supporters
+- Recorded and analyzed daily outreach conversations
+- VAN database
+- ensuring accurate
+data tracking
+- strategic campaign decisions
+- public policy
+- identity of individuals
+- troubleshot issues
+- ensure smooth access
+- accurate recordkeeping
+- filing documents
+- sending professional emails
+- managing spreadsheets
+- completing daily audit sheets
+- Microsoft Office
+- Excel
+- Canva
+- NGP VAN Database
+- Ecanvasser
+
+ENTITIES IN RESUME ORDER:
+SKILL      -> 'Minneapolis' [30:41]
+DEGREE     -> 'Bachelor of Arts in Political Science' [71:108]
+DEGREE     -> 'Minors: Business Law & Anthropology' [110:145]
+SCHOOL     -> 'University of Minnesota-Twin Cities' [167:202]
+SKILL      -> 'Minneapolis' [204:215]
+JOB_TITLE  -> 'Civil Legal Advocate' [263:283]
+SKILL      -> 'Minneapolis' [293:304]
+SKILL      -> 'Assist clients' [333:347]
+SKILL      -> 'filing process' [490:504]
+SKILL      -> 'providing support and deepening' [567:598]
+SKILL      -> 'understanding of legal processes' [599:631]
+SKILL      -> 'Provided emotional support and legal information' [634:682]
+SKILL      -> 'domestic violence' [699:716]
+SKILL      -> 'informed decisions' [742:760]
+JOB_TITLE  -> 'Minnesota Canvasser' [809:828]
+SKILL      -> 'Worked door-to-door' [901:920]
+SKILL      -> 'Parenthood issue campaigns' [989:1015]
+SKILL      -> 'increasing public awareness' [1017:1044]
+SKILL      -> 'mobilizing supporters' [1050:1071]
+SKILL      -> 'Recorded and analyzed daily outreach conversations' [1107:1157]
+SKILL      -> 'VAN database' [1165:1177]
+SKILL      -> 'ensuring accurate\ndata tracking' [1179:1210]
+SKILL      -> 'strategic campaign decisions' [1225:1253]
+SKILL      -> 'public policy' [1361:1374]
+JOB_TITLE  -> 'Office Assistant' [1391:1407]
+SKILL      -> 'Minneapolis' [1449:1460]
+SKILL      -> 'identity of individuals' [1500:1523]
+SKILL      -> 'troubleshot issues' [1572:1590]
+SKILL      -> 'ensure smooth access' [1594:1614]
+SKILL      -> 'accurate recordkeeping' [1638:1660]
+SKILL      -> 'filing documents' [1738:1754]
+SKILL      -> 'sending professional emails' [1756:1783]
+SKILL      -> 'managing spreadsheets' [1785:1806]
+SKILL      -> 'completing daily audit sheets' [1808:1837]
+SKILL      -> 'Microsoft Office' [1902:1918]
+SKILL      -> 'Excel' [1920:1925]
+SKILL      -> 'Canva' [1927:1932]
+SKILL      -> 'NGP VAN Database' [1962:1978]
+SKILL      -> 'Ecanvasser' [1981:1991]
+
+
+======================================================================
+FILE: test10.pdf
+======================================================================
+
+JOB_TITLE:
+- Research Assistant
+- Peer Mentor
+- Independent Researcher & Cohort Member
+- Communications Director
+- President and Events Coordinator
+- Social / Behavioral
+
+SCHOOL:
+- University of Minnesota - Twin Cities
+- University of Minnesota
+- Trier Social Stress Test
+
+DEGREE:
+- Bachelor of Science in Psychology
+- Minors in Philosophy and Family Therapy
+
+SKILL:
+- Minneapolis
+- data collection
+- psychological well-beings
+- Recruit and screen participants
+- Collect survey responses
+- saliva samples
+- testing specialist
+- design a research project
+- relationship between childhood
+emotional neglect and adult dissociation
+- Ran weekly meetings
+- brainstorm research ideas
+- Attended monthly meetings
+- project progress
+- independent research
+- intersectional identities
+- professional wellbeing
+- medical student experiences
+- PubMed
+- demographic characteristics
+- analyzed MANOVAs
+- descriptive statistical tests
+- academic writing skills
+- Aided meta-analysis project
+- reviewing
+- coding literature
+- Al-Madinah
+- English
+- Tamil
+- C++
+- Java
+- HIPAA
+
+ENTITIES IN RESUME ORDER:
+DEGREE     -> 'Bachelor of Science in Psychology' [84:117]
+DEGREE     -> 'Minors in Philosophy and Family Therapy' [119:158]
+SCHOOL     -> 'University of Minnesota - Twin Cities' [181:218]
+JOB_TITLE  -> 'Research Assistant' [279:297]
+SCHOOL     -> 'University of Minnesota' [385:408]
+SKILL      -> 'Minneapolis' [410:421]
+SKILL      -> 'data collection' [496:511]
+SKILL      -> 'psychological well-beings' [658:683]
+SKILL      -> 'Recruit and screen participants' [686:717]
+SKILL      -> 'Collect survey responses' [790:814]
+SKILL      -> 'saliva samples' [819:833]
+SCHOOL     -> 'Trier Social Stress Test' [862:886]
+SKILL      -> 'testing specialist' [892:910]
+JOB_TITLE  -> 'Peer Mentor' [966:977]
+SKILL      -> 'design a research project' [1097:1122]
+SKILL      -> 'relationship between childhood\nemotional neglect and adult dissociation' [1130:1201]
+SKILL      -> 'Ran weekly meetings' [1204:1223]
+SKILL      -> 'brainstorm research ideas' [1240:1265]
+SKILL      -> 'Attended monthly meetings' [1268:1293]
+SKILL      -> 'project progress' [1304:1320]
+JOB_TITLE  -> 'Independent Researcher & Cohort Member' [1364:1402]
+SKILL      -> 'Minneapolis' [1481:1492]
+SKILL      -> 'independent research' [1525:1545]
+SKILL      -> 'intersectional identities' [1562:1587]
+SKILL      -> 'professional wellbeing' [1589:1611]
+SKILL      -> 'medical student experiences' [1617:1644]
+SKILL      -> 'PubMed' [1756:1762]
+SKILL      -> 'demographic characteristics' [1824:1851]
+SKILL      -> 'analyzed MANOVAs' [1899:1915]
+SKILL      -> 'descriptive statistical tests' [1917:1946]
+SKILL      -> 'academic writing skills' [1989:2012]
+SKILL      -> 'Aided meta-analysis project' [2043:2070]
+SKILL      -> 'reviewing' [2079:2088]
+SKILL      -> 'coding literature' [2093:2110]
+SKILL      -> 'intersectional identities' [2162:2187]
+SKILL      -> 'Minneapolis' [2325:2336]
+JOB_TITLE  -> 'Communications Director' [2363:2386]
+JOB_TITLE  -> 'President and Events Coordinator' [2447:2479]
+SKILL      -> 'Al-Madinah' [2481:2491]
+SKILL      -> 'English' [2599:2606]
+SKILL      -> 'Tamil' [2611:2616]
+SKILL      -> 'C++' [2698:2701]
+SKILL      -> 'Java' [2706:2710]
+JOB_TITLE  -> 'Social / Behavioral' [2732:2751]
+SKILL      -> 'HIPAA' [2831:2836]
+
+
+======================================================================
+FILE: test11.pdf
+======================================================================
+
+JOB_TITLE:
+- Liberal Arts
+- Teaching Assistant
+- Shift Lead Head Manager
+- Customer Associate
+- Student Volunteer
+- Member, Psychology
+
+SCHOOL:
+- University of Minnesota
+
+DEGREE:
+- Bachelor of Arts in Psychology
+
+SKILL:
+- Minneapolis
+- third-graders
+- English and History
+- Completed tasks
+- head teacher
+- creation of 3 lesson plans
+- varying learning abilities
+- Trained and supervised a team
+- leadership skills
+- Managed staff
+- customer service
+- necessary opening and closing duties
+- maintaining a clean and aesthetically
+- pleasing store
+- required health
+- Resolved customer concerns
+- ensure customer satisfaction
+- Communicated with 50 customers daily
+- cash register
+- answering questions
+- recommending products
+- Communicate in person
+- phone to schedule appointments
+- Maintain an up-to-date knowledge base
+- Initiate and complete
+- time-sensitive projects
+- Led various team-building
+- introductory games
+- foster a community
+- Team Captain
+- Intramural Basketball
+- Spanish
+- First aid/
+- Google Suite
+
+ENTITIES IN RESUME ORDER:
+DEGREE     -> 'Bachelor of Arts in Psychology' [111:141]
+SCHOOL     -> 'University of Minnesota' [175:198]
+JOB_TITLE  -> 'Liberal Arts' [225:237]
+SKILL      -> 'Minneapolis' [239:250]
+JOB_TITLE  -> 'Teaching Assistant' [285:303]
+SKILL      -> 'Minneapolis' [330:341]
+SKILL      -> 'third-graders' [387:400]
+SKILL      -> 'English and History' [423:442]
+SKILL      -> 'Completed tasks' [445:460]
+SKILL      -> 'head teacher' [481:493]
+SKILL      -> 'creation of 3 lesson plans' [507:533]
+SKILL      -> 'varying learning abilities' [575:601]
+JOB_TITLE  -> 'Shift Lead Head Manager' [618:641]
+SKILL      -> 'Trained and supervised a team' [708:737]
+SKILL      -> 'leadership skills' [770:787]
+SKILL      -> 'Managed staff' [829:842]
+SKILL      -> 'customer service' [907:923]
+SKILL      -> 'necessary opening and closing duties' [936:972]
+SKILL      -> 'maintaining a clean and aesthetically' [974:1011]
+SKILL      -> 'pleasing store' [1012:1026]
+SKILL      -> 'required health' [1040:1055]
+JOB_TITLE  -> 'Customer Associate' [1073:1091]
+SKILL      -> 'Resolved customer concerns' [1148:1174]
+SKILL      -> 'ensure customer satisfaction' [1202:1230]
+SKILL      -> 'Communicated with 50 customers daily' [1233:1269]
+SKILL      -> 'cash register' [1300:1313]
+SKILL      -> 'answering questions' [1315:1334]
+SKILL      -> 'recommending products' [1339:1360]
+JOB_TITLE  -> 'Student Volunteer' [1395:1412]
+SKILL      -> 'Communicate in person' [1486:1507]
+SKILL      -> 'phone to schedule appointments' [1521:1551]
+SKILL      -> 'Maintain an up-to-date knowledge base' [1628:1665]
+SKILL      -> 'Initiate and complete' [1721:1742]
+SKILL      -> 'time-sensitive projects' [1743:1766]
+SKILL      -> 'Led various team-building' [2083:2108]
+SKILL      -> 'introductory games' [2113:2131]
+SKILL      -> 'foster a community' [2135:2153]
+JOB_TITLE  -> 'Member, Psychology' [2197:2215]
+SKILL      -> 'Team Captain' [2305:2317]
+SKILL      -> 'Intramural Basketball' [2319:2340]
+SKILL      -> 'Spanish' [2527:2534]
+SKILL      -> 'First aid/' [2535:2545]
+SKILL      -> 'Google Suite' [2584:2596]
+
+
+======================================================================
+FILE: test12.pdf
+======================================================================
+
+JOB_TITLE:
+- Study & Intern
+- Youth Mentor
+
+SCHOOL:
+- University of Minnesota-Twin Cities
+
+DEGREE:
+- Bachelor of Arts in Sociology of Law
+- Minor: Political Science
+
+SKILL:
+- Minneapolis
+- Law
+- Crime
+- Criminal Behavior and Social Control
+- Toledo
+- Spain
+- Provide social and educational support
+- participant engagement
+- Facilitate small group discussions
+- build community
+- Ideate projects
+- engage youth and promote improvement in literacy-related skills
+- Ramsey
+- Mentored a student in one-on-one sessions
+- setting goals
+- relationships with others
+- create a more efficient
+- accessibility
+- Guided the mentee
+- ensuring safety needs were met
+- recognizing
+- responding effectively
+- adaptive problem-solving skills
+- Complete records and reports
+- emergencies
+- contaminations
+- patron complaints
+- Manage 10 to 15 tables
+- customer satisfaction
+- Microsoft Office
+- Google Workspace
+- Spanish
+
+ENTITIES IN RESUME ORDER:
+DEGREE     -> 'Bachelor of Arts in Sociology of Law' [96:132]
+DEGREE     -> 'Minor: Political Science' [159:183]
+SCHOOL     -> 'University of Minnesota-Twin Cities' [198:233]
+SKILL      -> 'Minneapolis' [235:246]
+SKILL      -> 'Law' [289:292]
+SKILL      -> 'Crime' [294:299]
+SKILL      -> 'Criminal Behavior and Social Control' [373:409]
+JOB_TITLE  -> 'Study & Intern' [468:482]
+SKILL      -> 'Toledo' [556:562]
+SKILL      -> 'Spain' [564:569]
+SKILL      -> 'Minneapolis' [654:665]
+SKILL      -> 'Provide social and educational support' [696:734]
+SKILL      -> 'participant engagement' [804:826]
+SKILL      -> 'Facilitate small group discussions' [829:863]
+SKILL      -> 'build community' [913:928]
+SKILL      -> 'Ideate projects' [931:946]
+SKILL      -> 'engage youth and promote improvement in literacy-related skills' [950:1013]
+JOB_TITLE  -> 'Youth Mentor' [1014:1026]
+SKILL      -> 'Ramsey' [1066:1072]
+SKILL      -> 'Mentored a student in one-on-one sessions' [1108:1149]
+SKILL      -> 'setting goals' [1151:1164]
+SKILL      -> 'relationships with others' [1247:1272]
+SKILL      -> 'create a more efficient' [1372:1395]
+SKILL      -> 'accessibility' [1542:1555]
+SKILL      -> 'Guided the mentee' [1558:1575]
+SKILL      -> 'ensuring safety needs were met' [1627:1657]
+SKILL      -> 'recognizing' [1870:1881]
+SKILL      -> 'responding effectively' [1886:1908]
+SKILL      -> 'adaptive problem-solving skills' [1934:1965]
+SKILL      -> 'Complete records and reports' [1968:1996]
+SKILL      -> 'emergencies' [2007:2018]
+SKILL      -> 'contaminations' [2020:2034]
+SKILL      -> 'patron complaints' [2040:2057]
+SKILL      -> 'Minneapolis' [2179:2190]
+SKILL      -> 'Manage 10 to 15 tables' [2217:2239]
+SKILL      -> 'customer satisfaction' [2283:2304]
+SKILL      -> 'Microsoft Office' [2458:2474]
+SKILL      -> 'Google Workspace' [2479:2495]
+SKILL      -> 'Spanish' [2524:2531]
+
+
+======================================================================
+FILE: test2.pdf
+======================================================================
+
+JOB_TITLE:
+- Customer Service Excellence
+- Liberal Arts
+- Manager
+- Summer Marketing Intern
+- President
+- Member
+- Treasurer
+- Liberal Arts-
+
+SCHOOL:
+- University of Minnesota-Twin Cities
+- University of Minnesota
+
+DEGREE:
+- Bachelor of Arts in Communication Studies
+- Minor: Management
+
+SKILL:
+- client relationships
+- focused service
+- high customer retention
+- Budget & Financial Management
+- Managed operating budgets
+- controlled costs
+- optimized resource
+allocation
+- support sustainable business growth
+- Conducted market research
+- identify trends
+- refine
+service offerings
+- Chinese
+- Advanced proficiency
+- English
+- Word
+- Excel
+- PowerPoint
+- Canva
+- Garage Band
+- social media
+- Founder and CEO
+- Minneapolis
+- obtain proper
+- operating licenses
+- insurance
+- business plans
+- operating procedures
+- optimize food and beverage
+operations
+- increase in sales
+- improvement in operational efficiency
+- Review past sales
+- show
+units
+- Communicate with future and current tenants on details regarding property
+- rent payments
+- security
+deposits
+- thereby improving tenant satisfaction
+- Manage property operations
+- resolving tenant complaints
+- enforcing occupancy rules
+- coordinating renovations
+- overseeing
+- maintenance contracts
+- Sanofi
+- Taipei
+- Worked collaboratively
+- communicate medical device solutions
+- Read and translated
+- Product PowerPoint
+- surgical techniques
+- abbreviated surgical techniques
+- translated
+journals
+- Organized translated documents
+- new femur-related medical products
+- presented the information to sales representatives
+
+ENTITIES IN RESUME ORDER:
+JOB_TITLE  -> 'Customer Service Excellence' [120:147]
+SKILL      -> 'client relationships' [177:197]
+SKILL      -> 'focused service' [234:249]
+SKILL      -> 'high customer retention' [264:287]
+SKILL      -> 'Budget & Financial Management' [311:340]
+SKILL      -> 'Managed operating budgets' [342:367]
+SKILL      -> 'controlled costs' [369:385]
+SKILL      -> 'optimized resource\nallocation' [391:420]
+SKILL      -> 'support sustainable business growth' [451:486]
+SKILL      -> 'Conducted market research' [518:543]
+SKILL      -> 'identify trends' [572:587]
+SKILL      -> 'refine\nservice offerings' [589:613]
+SKILL      -> 'Chinese' [702:709]
+SKILL      -> 'Advanced proficiency' [711:731]
+SKILL      -> 'English' [735:742]
+SKILL      -> 'Word' [777:781]
+SKILL      -> 'Excel' [783:788]
+SKILL      -> 'PowerPoint' [790:800]
+SKILL      -> 'Canva' [802:807]
+SKILL      -> 'Garage Band' [809:820]
+SKILL      -> 'social media' [826:838]
+DEGREE     -> 'Bachelor of Arts in Communication Studies' [849:890]
+DEGREE     -> 'Minor: Management' [892:909]
+SCHOOL     -> 'University of Minnesota-Twin Cities' [928:963]
+JOB_TITLE  -> 'Liberal Arts' [976:988]
+SKILL      -> 'Founder and CEO' [1008:1023]
+SKILL      -> 'Minneapolis' [1050:1061]
+SKILL      -> 'obtain proper' [1146:1159]
+SKILL      -> 'operating licenses' [1160:1178]
+SKILL      -> 'insurance' [1183:1192]
+SKILL      -> 'business plans' [1217:1231]
+SKILL      -> 'operating procedures' [1245:1265]
+SKILL      -> 'optimize food and beverage\noperations' [1269:1306]
+SKILL      -> 'increase in sales' [1327:1344]
+SKILL      -> 'improvement in operational efficiency' [1355:1392]
+SKILL      -> 'Review past sales' [1395:1412]
+JOB_TITLE  -> 'Manager' [1477:1484]
+SKILL      -> 'Minneapolis' [1511:1522]
+SKILL      -> 'show\nunits' [1652:1662]
+SKILL      -> 'Communicate with future and current tenants on details regarding property' [1736:1809]
+SKILL      -> 'rent payments' [1811:1824]
+SKILL      -> 'security\ndeposits' [1830:1847]
+SKILL      -> 'thereby improving tenant satisfaction' [1849:1886]
+SKILL      -> 'Manage property operations' [1889:1915]
+SKILL      -> 'resolving tenant complaints' [1919:1946]
+SKILL      -> 'enforcing occupancy rules' [1948:1973]
+SKILL      -> 'coordinating renovations' [1993:2017]
+SKILL      -> 'overseeing' [2023:2033]
+SKILL      -> 'maintenance contracts' [2034:2055]
+JOB_TITLE  -> 'Summer Marketing Intern' [2056:2079]
+SKILL      -> 'Sanofi' [2081:2087]
+SKILL      -> 'Taipei' [2089:2095]
+SKILL      -> 'Worked collaboratively' [2118:2140]
+SKILL      -> 'communicate medical device solutions' [2165:2201]
+SKILL      -> 'Read and translated' [2204:2223]
+SKILL      -> 'Product PowerPoint' [2224:2242]
+SKILL      -> 'surgical techniques' [2244:2263]
+SKILL      -> 'abbreviated surgical techniques' [2265:2296]
+SKILL      -> 'translated\njournals' [2302:2321]
+SKILL      -> 'English' [2327:2334]
+SKILL      -> 'Organized translated documents' [2348:2378]
+SKILL      -> 'new femur-related medical products' [2411:2445]
+SKILL      -> 'presented the information to sales representatives' [2450:2500]
+JOB_TITLE  -> 'President' [2571:2580]
+JOB_TITLE  -> 'Member' [2653:2659]
+JOB_TITLE  -> 'Treasurer' [2721:2730]
+JOB_TITLE  -> 'Liberal Arts-' [2758:2771]
+SCHOOL     -> 'University of Minnesota' [2772:2795]
+
+
+======================================================================
+FILE: test3.pdf
+======================================================================
+
+JOB_TITLE:
+- Minneapolis
+- Case Studies
+- Community Engagement Intern
+- Political Intern
+- Social Change Intern
+- Student Public Interest Research
+
+SCHOOL:
+- University of Minnesota - Twin Cities
+
+DEGREE:
+- Bachelor of Individualized Studies
+
+SKILL:
+- Minneapolis
+- Communication
+- Children
+- Comparative Race and Ethnicity
+- Lavigne Household
+- Coordinated communication
+- decision-making
+- Managed scheduling
+- transportation
+- Researched
+- organized
+- communicated complex medical
+- billing information to support informed care
+- Oversaw healthcare billing
+- insurance claims
+- documentation
+- resolving discrepancies
+- accurate records
+- Developed systems
+- track appointments
+- medications
+- care plans
+- improving organization and efficiency
+- Advocated
+- facilitating discussions
+- coordinating follow-up actions
+- Implemented grassroots
+- advocacy strategies
+- boosting public engagement
+- Supported logistics
+- volunteer coordination
+- Engaged directly with nonprofit
+- stakeholder outreach
+- policy research skills
+- Minnesota Democratic
+- political events
+- interested individuals
+- take action
+- data
+- analytics
+- reporting
+- data visualization
+- Devised and implemented civic engagement plans
+- increasing campaign
+- student participation
+- strengthen organizing
+- public
+speaking
+- strategic planning
+- set quantifiable goals
+- advocacy
+campaigns
+- Microsoft Suite
+- QuickBooks
+- Canva
+- Spanish
+
+ENTITIES IN RESUME ORDER:
+JOB_TITLE  -> 'Minneapolis' [15:26]
+DEGREE     -> 'Bachelor of Individualized Studies' [75:109]
+SCHOOL     -> 'University of Minnesota - Twin Cities' [136:173]
+SKILL      -> 'Minneapolis' [175:186]
+JOB_TITLE  -> 'Case Studies' [331:343]
+SKILL      -> 'Communication' [364:377]
+SKILL      -> 'Children' [400:408]
+SKILL      -> 'Comparative Race and Ethnicity' [437:467]
+SKILL      -> 'Lavigne Household' [569:586]
+SKILL      -> 'Minneapolis' [588:599]
+SKILL      -> 'Coordinated communication' [635:660]
+SKILL      -> 'decision-making' [782:797]
+SKILL      -> 'Managed scheduling' [801:819]
+SKILL      -> 'transportation' [876:890]
+SKILL      -> 'Researched' [920:930]
+SKILL      -> 'organized' [932:941]
+SKILL      -> 'communicated complex medical' [947:975]
+SKILL      -> 'billing information to support informed care' [980:1024]
+SKILL      -> 'Oversaw healthcare billing' [1038:1064]
+SKILL      -> 'insurance claims' [1066:1082]
+SKILL      -> 'documentation' [1088:1101]
+SKILL      -> 'resolving discrepancies' [1103:1126]
+SKILL      -> 'accurate records' [1143:1159]
+SKILL      -> 'Developed systems' [1163:1180]
+SKILL      -> 'track appointments' [1184:1202]
+SKILL      -> 'medications' [1204:1215]
+SKILL      -> 'care plans' [1221:1231]
+SKILL      -> 'improving organization and efficiency' [1233:1270]
+SKILL      -> 'Advocated' [1274:1283]
+SKILL      -> 'facilitating discussions' [1302:1326]
+SKILL      -> 'coordinating follow-up actions' [1346:1376]
+JOB_TITLE  -> 'Community Engagement Intern' [1378:1405]
+SKILL      -> 'Implemented grassroots' [1461:1483]
+SKILL      -> 'advocacy strategies' [1484:1503]
+SKILL      -> 'boosting public engagement' [1531:1557]
+SKILL      -> 'Supported logistics' [1582:1601]
+SKILL      -> 'volunteer coordination' [1606:1628]
+SKILL      -> 'Engaged directly with nonprofit' [1683:1714]
+SKILL      -> 'communication' [1772:1785]
+SKILL      -> 'stakeholder outreach' [1787:1807]
+SKILL      -> 'policy research skills' [1813:1835]
+JOB_TITLE  -> 'Political Intern' [1837:1853]
+SKILL      -> 'Minnesota Democratic' [1855:1875]
+SKILL      -> 'political events' [1945:1961]
+SKILL      -> 'interested individuals' [2002:2024]
+SKILL      -> 'take action' [2037:2048]
+SKILL      -> 'data' [2084:2088]
+SKILL      -> 'analytics' [2090:2099]
+SKILL      -> 'reporting' [2101:2110]
+SKILL      -> 'data visualization' [2112:2130]
+JOB_TITLE  -> 'Social Change Intern' [2258:2278]
+JOB_TITLE  -> 'Student Public Interest Research' [2280:2312]
+SKILL      -> 'Minneapolis' [2321:2332]
+SKILL      -> 'Devised and implemented civic engagement plans' [2360:2406]
+SKILL      -> 'increasing campaign' [2434:2453]
+SKILL      -> 'student participation' [2469:2490]
+SKILL      -> 'strengthen organizing' [2566:2587]
+SKILL      -> 'public\nspeaking' [2589:2604]
+SKILL      -> 'strategic planning' [2610:2628]
+SKILL      -> 'set quantifiable goals' [2684:2706]
+SKILL      -> 'advocacy\ncampaigns' [2741:2759]
+SKILL      -> 'Microsoft Suite' [2781:2796]
+SKILL      -> 'QuickBooks' [2798:2808]
+SKILL      -> 'Canva' [2810:2815]
+SKILL      -> 'Spanish' [2828:2835]
+
+
+======================================================================
+FILE: test4.pdf
+======================================================================
+
+JOB_TITLE:
+- Minneapolis
+- Google UX Design
+- Synthesis of Client Experiences
+- Design Coordinator
+
+SCHOOL:
+- University of Minnesota - Twin Cities
+- Trauma Unit Volunteer
+- St. Paul
+
+DEGREE:
+- Bachelor of Arts: Biology
+- Minor: User Experience Design
+
+SKILL:
+- Minneapolis
+- training on services and experiences
+- HIPAA training) of people living with
+brain injuries
+- synthesized case reviews
+- address negative feedback
+- highlight positive stories
+- Website Audit
+- Conducted market research
+- provided recommendations
+- improve usability
+- mapping suggested flow
+- design layout of
+photos
+- testimonials
+- improve user engagement
+- Produced a monthly member
+- evaluated the existing e-newsletter platform
+- develop content for social media
+- communications
+- social media platforms
+- health care
+- tax prep
+- investment accessible
+- Adobe XD
+- Figma
+- Microsoft Office
+
+ENTITIES IN RESUME ORDER:
+JOB_TITLE  -> 'Minneapolis' [20:31]
+DEGREE     -> 'Bachelor of Arts: Biology' [109:134]
+DEGREE     -> 'Minor: User Experience Design' [160:189]
+SCHOOL     -> 'University of Minnesota - Twin Cities' [208:245]
+SKILL      -> 'Minneapolis' [247:258]
+JOB_TITLE  -> 'Google UX Design' [263:279]
+JOB_TITLE  -> 'Synthesis of Client Experiences' [343:374]
+SKILL      -> 'training on services and experiences' [441:477]
+SKILL      -> 'HIPAA training) of people living with\nbrain injuries' [489:541]
+SKILL      -> 'synthesized case reviews' [558:582]
+SKILL      -> 'address negative feedback' [654:679]
+SKILL      -> 'highlight positive stories' [684:710]
+SKILL      -> 'Website Audit' [739:752]
+SKILL      -> 'Conducted market research' [804:829]
+SKILL      -> 'provided recommendations' [856:880]
+SKILL      -> 'improve usability' [884:901]
+SKILL      -> 'mapping suggested flow' [995:1017]
+SKILL      -> 'design layout of\nphotos' [1044:1067]
+SKILL      -> 'testimonials' [1069:1081]
+SKILL      -> 'improve user engagement' [1099:1122]
+JOB_TITLE  -> 'Design Coordinator' [1144:1162]
+SKILL      -> 'Minneapolis' [1187:1198]
+SKILL      -> 'Produced a monthly member' [1229:1254]
+SKILL      -> 'evaluated the existing e-newsletter platform' [1272:1316]
+SKILL      -> 'develop content for social media' [1371:1403]
+SKILL      -> 'communications' [1411:1425]
+SKILL      -> 'social media platforms' [1470:1492]
+SKILL      -> 'health care' [1536:1547]
+SKILL      -> 'tax prep' [1549:1557]
+SKILL      -> 'investment accessible' [1563:1584]
+SCHOOL     -> 'Trauma Unit Volunteer' [1604:1625]
+SCHOOL     -> 'St. Paul' [1645:1653]
+SKILL      -> 'Adobe XD' [1880:1888]
+SKILL      -> 'Figma' [1890:1895]
+SKILL      -> 'Microsoft Office' [1898:1914]
+
+
+======================================================================
+FILE: test5.pdf
+======================================================================
+
+JOB_TITLE:
+- Student Facilities Assistant
+- Produce Associate
+
+SCHOOL:
+- University of Minnesota-Twin Cities
+
+DEGREE:
+- Bachelor of Arts: Psychology
+- Minor: Sociology
+
+SKILL:
+- Minneapolis
+- Facial Perception
+- Face-Specialized Processing Systems
+- Sensation and Perception
+- Utilized chimeric faces to better understand the mechanism of face-specialized processing
+systems
+- Conducted small-scale research
+- Averaged participant data
+- Understanding Health Disparities
+- designed
+- understand health access
+- Created materials designed
+- educate the public about
+- health resources
+- visual statistics
+- eye-catching graphics
+- Presented findings to students
+- share findings
+- answered questions
+- Oversee opening and closing procedures
+- monitor exhibition spaces
+- Maintain museum grounds
+- ensuring accessible paths
+- Assist with cleaning and resetting of spaces
+- daytime programs and events
+- Surveyed the produce department
+- Organized the layout of the produce department to allow
+
+ENTITIES IN RESUME ORDER:
+DEGREE     -> 'Bachelor of Arts: Psychology' [112:140]
+DEGREE     -> 'Minor: Sociology' [142:158]
+SCHOOL     -> 'University of Minnesota-Twin Cities' [180:215]
+SKILL      -> 'Minneapolis' [217:228]
+SKILL      -> 'Facial Perception' [259:276]
+SKILL      -> 'Face-Specialized Processing Systems' [281:316]
+SKILL      -> 'Sensation and Perception' [354:378]
+SKILL      -> 'Utilized chimeric faces to better understand the mechanism of face-specialized processing\nsystems' [406:503]
+SKILL      -> 'Conducted small-scale research' [506:536]
+SKILL      -> 'Averaged participant data' [625:650]
+SKILL      -> 'Understanding Health Disparities' [750:782]
+SKILL      -> 'designed' [903:911]
+SKILL      -> 'understand health access' [1010:1034]
+SKILL      -> 'Minneapolis' [1038:1049]
+SKILL      -> 'Created materials designed' [1052:1078]
+SKILL      -> 'educate the public about' [1082:1106]
+SKILL      -> 'health resources' [1107:1123]
+SKILL      -> 'visual statistics' [1153:1170]
+SKILL      -> 'eye-catching graphics' [1176:1197]
+SKILL      -> 'Presented findings to students' [1200:1230]
+SKILL      -> 'share findings' [1297:1311]
+SKILL      -> 'answered questions' [1316:1334]
+JOB_TITLE  -> 'Student Facilities Assistant' [1369:1397]
+SKILL      -> 'Minneapolis' [1412:1423]
+SKILL      -> 'Oversee opening and closing procedures' [1453:1491]
+SKILL      -> 'monitor exhibition spaces' [1496:1521]
+SKILL      -> 'Maintain museum grounds' [1524:1547]
+SKILL      -> 'ensuring accessible paths' [1578:1603]
+SKILL      -> 'Assist with cleaning and resetting of spaces' [1606:1650]
+SKILL      -> 'daytime programs and events' [1659:1686]
+JOB_TITLE  -> 'Produce Associate' [1687:1704]
+SKILL      -> 'Surveyed the produce department' [1869:1900]
+SKILL      -> 'Organized the layout of the produce department to allow' [1988:2043]
+
+
+======================================================================
+FILE: test6.pdf
+======================================================================
+
+JOB_TITLE:
+- Robin Williams
+- Staff Intern
+- Peer Advisor
+- Student Ambassador
+- Liberal Arts
+
+SCHOOL:
+- University of Minnesota-Twin Cities
+- Thomas A. Daschle
+
+DEGREE:
+- Bachelor of Arts in Political Science
+- Bachelor of Arts in Journalism
+- Minor: Business Management
+- Minor: Animal Science
+- Environmental Science
+
+SKILL:
+- Agriculture
+- Food
+- Fort Snelling
+- Screen and confer with constituents
+- distribute health care
+- Write and update various types
+- multiple constituents
+- active casework
+- ensure coordinated communication
+- event planning staff
+- increase outreach
+- project implementation
+- Aberdeen
+- recognize constituent concerns
+- streamline government projects
+- Guide orientation sessions
+- inform students of career opportunities
+- job resources
+- office services
+- cover letters
+- help research majors
+- careers
+- Facilitate resume and cover letter workshops
+- presentations
+- increase service
+- Initiate ideas
+- Trained
+- diversity
+- inclusiveness
+- flexibility
+- developing strong relationships with coworkers
+- Successfully co-facilitated orientation sessions
+- incoming freshmen
+- giving presentations
+- leading tours
+- acting
+- rigorous time schedules
+- leading
+- enhance their experiences
+- managed time for the effectiveness of the programs
+- Men’s Hockey Pep Band
+- Microsoft Office
+- Google Workspace
+- Asana
+- APLUS
+
+ENTITIES IN RESUME ORDER:
+JOB_TITLE  -> 'Robin Williams' [0:14]
+SCHOOL     -> 'University of Minnesota-Twin Cities' [100:135]
+DEGREE     -> 'Bachelor of Arts in Political Science' [191:228]
+DEGREE     -> 'Bachelor of Arts in Journalism' [229:259]
+DEGREE     -> 'Minor: Business Management' [290:316]
+DEGREE     -> 'Minor: Animal Science' [347:368]
+SKILL      -> 'Agriculture' [381:392]
+SKILL      -> 'Food' [394:398]
+DEGREE     -> 'Environmental Science' [404:425]
+JOB_TITLE  -> 'Staff Intern' [448:460]
+SKILL      -> 'Fort Snelling' [497:510]
+SKILL      -> 'Screen and confer with constituents' [540:575]
+SKILL      -> 'distribute health care' [669:691]
+SKILL      -> 'Write and update various types' [728:758]
+SKILL      -> 'multiple constituents' [780:801]
+SKILL      -> 'active casework' [855:870]
+SKILL      -> 'ensure coordinated communication' [874:906]
+SKILL      -> 'event planning staff' [950:970]
+SKILL      -> 'increase outreach' [974:991]
+SKILL      -> 'project implementation' [993:1015]
+JOB_TITLE  -> 'Staff Intern' [1047:1059]
+SCHOOL     -> 'Thomas A. Daschle' [1083:1100]
+SKILL      -> 'Aberdeen' [1102:1110]
+SKILL      -> 'recognize constituent concerns' [1350:1380]
+SKILL      -> 'streamline government projects' [1382:1412]
+SKILL      -> 'increase outreach' [1576:1593]
+JOB_TITLE  -> 'Peer Advisor' [1616:1628]
+SKILL      -> 'Guide orientation sessions' [1729:1755]
+SKILL      -> 'inform students of career opportunities' [1759:1798]
+SKILL      -> 'job resources' [1800:1813]
+SKILL      -> 'office services' [1819:1834]
+SKILL      -> 'cover letters' [1898:1911]
+SKILL      -> 'help research majors' [1916:1936]
+SKILL      -> 'careers' [1938:1945]
+SKILL      -> 'Facilitate resume and cover letter workshops' [2002:2046]
+SKILL      -> 'presentations' [2051:2064]
+SKILL      -> 'increase service' [2095:2111]
+SKILL      -> 'Initiate ideas' [2123:2137]
+SKILL      -> 'Trained' [2339:2346]
+SKILL      -> 'diversity' [2399:2408]
+SKILL      -> 'inclusiveness' [2410:2423]
+SKILL      -> 'flexibility' [2425:2436]
+SKILL      -> 'developing strong relationships with coworkers' [2516:2562]
+SKILL      -> 'Successfully co-facilitated orientation sessions' [2565:2613]
+SKILL      -> 'incoming freshmen' [2629:2646]
+SKILL      -> 'giving presentations' [2679:2699]
+SKILL      -> 'leading tours' [2701:2714]
+SKILL      -> 'acting' [2720:2726]
+SKILL      -> 'rigorous time schedules' [2824:2847]
+SKILL      -> 'leading' [2853:2860]
+SKILL      -> 'enhance their experiences' [2890:2915]
+SKILL      -> 'managed time for the effectiveness of the programs' [2932:2982]
+JOB_TITLE  -> 'Student Ambassador' [2995:3013]
+JOB_TITLE  -> 'Liberal Arts' [3026:3038]
+SKILL      -> 'Men’s Hockey Pep Band' [3111:3132]
+SKILL      -> 'Microsoft Office' [3209:3225]
+SKILL      -> 'Google Workspace' [3227:3243]
+SKILL      -> 'Asana' [3245:3250]
+SKILL      -> 'APLUS' [3256:3261]
+
+
+======================================================================
+FILE: test7.pdf
+======================================================================
+
+JOB_TITLE:
+- Lea Anderson
+- Minneapolis
+- Liberal Arts
+- Academic Tutor
+- Member
+- Chemistry Tutor
+
+SCHOOL:
+- University of Minnesota - Twin Cities
+
+DEGREE:
+- Bachelor of Arts in Chemistry
+- Minor: Pharmacology
+
+SKILL:
+- Minneapolis
+- Multivariable Calculus
+- Physics
+- Chemical Principles
+- Statistical Analysis
+- Pre-Med
+- Designed experimental protocols
+- test a hypothesis
+- Communicated experimental results
+- written paper
+- presentation
+- safe laboratory procedures
+- proper use of personal protective equipment
+- waste handling
+- understanding of chemical principles
+- techniques
+- Friedell Middle School
+- Rochester
+- Oversaw student-led after-school tutoring program
+- middle school students
+- Tutored
+- math
+- social studies
+- English
+- lesson plans
+- exams
+- Provided chemistry tutoring
+- Assisted students
+- understanding chemistry concepts
+- Led exam preparation workshops
+- Completed 50 hours of volunteering during the 2022-2023 school year
+- Customer service
+- Technical writing
+- Spanish
+- Microsoft Office
+- Stata
+- C++
+
+ENTITIES IN RESUME ORDER:
+JOB_TITLE  -> 'Lea Anderson' [0:12]
+JOB_TITLE  -> 'Minneapolis' [13:24]
+DEGREE     -> 'Bachelor of Arts in Chemistry' [85:114]
+DEGREE     -> 'Minor: Pharmacology' [116:135]
+SCHOOL     -> 'University of Minnesota - Twin Cities' [157:194]
+JOB_TITLE  -> 'Liberal Arts' [207:219]
+SKILL      -> 'Minneapolis' [221:232]
+SKILL      -> 'Multivariable Calculus' [260:282]
+SKILL      -> 'Physics' [284:291]
+SKILL      -> 'Chemical Principles' [295:314]
+SKILL      -> 'Statistical Analysis' [335:355]
+SKILL      -> 'Pre-Med' [374:381]
+SKILL      -> 'Designed experimental protocols' [574:605]
+SKILL      -> 'test a hypothesis' [609:626]
+SKILL      -> 'Communicated experimental results' [629:662]
+SKILL      -> 'written paper' [694:707]
+SKILL      -> 'presentation' [717:729]
+SKILL      -> 'safe laboratory procedures' [757:783]
+SKILL      -> 'proper use of personal protective equipment' [795:838]
+SKILL      -> 'waste handling' [840:854]
+SKILL      -> 'understanding of chemical principles' [856:892]
+SKILL      -> 'techniques' [894:904]
+JOB_TITLE  -> 'Academic Tutor' [963:977]
+SKILL      -> 'Friedell Middle School' [979:1001]
+SKILL      -> 'Rochester' [1003:1012]
+SKILL      -> 'Oversaw student-led after-school tutoring program' [1045:1094]
+SKILL      -> 'middle school students' [1103:1125]
+SKILL      -> 'Tutored' [1128:1135]
+SKILL      -> 'middle school students' [1140:1162]
+SKILL      -> 'math' [1203:1207]
+SKILL      -> 'social studies' [1209:1223]
+SKILL      -> 'English' [1229:1236]
+SKILL      -> 'lesson plans' [1314:1326]
+SKILL      -> 'exams' [1339:1344]
+JOB_TITLE  -> 'Member' [1370:1376]
+SKILL      -> 'Rochester' [1423:1432]
+JOB_TITLE  -> 'Chemistry Tutor' [1458:1473]
+SKILL      -> 'Rochester' [1496:1505]
+SKILL      -> 'Provided chemistry tutoring' [1533:1560]
+SKILL      -> 'Assisted students' [1613:1630]
+SKILL      -> 'understanding chemistry concepts' [1636:1668]
+SKILL      -> 'Led exam preparation workshops' [1695:1725]
+SKILL      -> 'Completed 50 hours of volunteering during the 2022-2023 school year' [1751:1818]
+SKILL      -> 'Customer service' [1826:1842]
+SKILL      -> 'Technical writing' [1843:1860]
+SKILL      -> 'Spanish' [1899:1906]
+SKILL      -> 'Microsoft Office' [1933:1949]
+SKILL      -> 'Stata' [1951:1956]
+SKILL      -> 'C++' [1958:1961]
+
+
+======================================================================
+FILE: test8.pdf
+======================================================================
+
+JOB_TITLE:
+- Study Abroad
+- Teaching Assistant
+- Vice President
+- Vice President of Recruitment
+- Class Representative
+- Liberal Arts
+
+SCHOOL:
+- University of Minnesota - Twin Cities
+
+DEGREE:
+- Bachelor of Arts in Mathematics (Education Specialization
+
+SKILL:
+- Minneapolis
+- Spanish
+- improve Spanish speaking
+- writing
+- reading
+- interpretation skills
+- Provide grading and feedback
+- Act as a liaison
+- ensure prompt
+- accurate responses to emails
+- course content
+- Advocate
+- Offer resources
+- feedback
+- Provide grading and feedback on assignments
+- Aid students
+- creating their resume
+- finding resources
+- declaring
+a major
+- Coordinate learning opportunities
+- professional development events
+- educational programming
+accessible
+- Facilitate annual sexual violence
+- diversity
+- equity
+- inclusion presentation
+- Monitor academic probation
+- improve members’
+- Serve on the executive board
+- risk prevention committee
+- formal
+- informal recruitment events
+- implementation of recruitment workshops
+- recruitment timeline
+- chapter primary recruitment
+- Upheld recruitment rules established
+- executed
+- supervised class meetings
+- desired characteristics
+- Reviewed officer interest indicators
+- Nominating Committee
+- prepare a slate of
+officers
+
+ENTITIES IN RESUME ORDER:
+DEGREE     -> 'Bachelor of Arts in Mathematics (Education Specialization' [103:160]
+SCHOOL     -> 'University of Minnesota - Twin Cities' [183:220]
+SKILL      -> 'Minneapolis' [222:233]
+JOB_TITLE  -> 'Study Abroad' [260:272]
+SKILL      -> 'Spanish' [342:349]
+SKILL      -> 'improve Spanish speaking' [394:418]
+SKILL      -> 'writing' [420:427]
+SKILL      -> 'reading' [429:436]
+SKILL      -> 'interpretation skills' [442:463]
+JOB_TITLE  -> 'Teaching Assistant' [480:498]
+SKILL      -> 'Provide grading and feedback' [569:597]
+SKILL      -> 'Act as a liaison' [650:666]
+SKILL      -> 'ensure prompt' [703:716]
+SKILL      -> 'accurate responses to emails' [718:746]
+SKILL      -> 'course content' [773:787]
+SKILL      -> 'Advocate' [790:798]
+SKILL      -> 'Offer resources' [1049:1064]
+SKILL      -> 'feedback' [1066:1074]
+SKILL      -> 'Provide grading and feedback on assignments' [1136:1179]
+SKILL      -> 'Aid students' [1212:1224]
+SKILL      -> 'creating their resume' [1255:1276]
+SKILL      -> 'finding resources' [1278:1295]
+SKILL      -> 'declaring\na major' [1311:1328]
+JOB_TITLE  -> 'Vice President' [1367:1381]
+SKILL      -> 'Coordinate learning opportunities' [1472:1505]
+SKILL      -> 'professional development events' [1507:1538]
+SKILL      -> 'educational programming\naccessible' [1544:1578]
+SKILL      -> 'Facilitate annual sexual violence' [1614:1647]
+SKILL      -> 'diversity' [1716:1725]
+SKILL      -> 'equity' [1727:1733]
+SKILL      -> 'inclusion presentation' [1739:1761]
+SKILL      -> 'Monitor academic probation' [1764:1790]
+SKILL      -> 'improve members’' [1819:1835]
+SKILL      -> 'Serve on the executive board' [1843:1871]
+SKILL      -> 'risk prevention committee' [1882:1907]
+JOB_TITLE  -> 'Vice President of Recruitment' [1933:1962]
+SKILL      -> 'formal' [2086:2092]
+SKILL      -> 'informal recruitment events' [2097:2124]
+SKILL      -> 'implementation of recruitment workshops' [2156:2195]
+SKILL      -> 'recruitment timeline' [2200:2220]
+SKILL      -> 'chapter primary recruitment' [2239:2266]
+SKILL      -> 'Upheld recruitment rules established' [2304:2340]
+JOB_TITLE  -> 'Class Representative' [2466:2486]
+JOB_TITLE  -> 'Liberal Arts' [2499:2511]
+SKILL      -> 'executed' [2578:2586]
+SKILL      -> 'supervised class meetings' [2592:2617]
+SKILL      -> 'desired characteristics' [2627:2650]
+SKILL      -> 'Reviewed officer interest indicators' [2666:2702]
+SKILL      -> 'Nominating Committee' [2782:2802]
+SKILL      -> 'prepare a slate of\nofficers' [2847:2874]
+
+
+======================================================================
+FILE: test9.pdf
+======================================================================
+
+JOB_TITLE:
+- Health Advocate
+- Patient Experience Volunteer
+- Shift Lead
+
+SCHOOL:
+- University of Minnesota-Twin Cities
+- St. Louis
+
+DEGREE:
+- Bachelor of Arts: Biology
+- Minor: History of Science, Technology
+
+SKILL:
+- Owen McCaffrey
+- Medicine
+- Minneapolis
+- Conduct patient care
+- Transport patients
+- transport
+- filing
+- faxing
+- photocopying
+- Share information
+- refer students
+- health resources
+- increase awareness
+- Distribute cold medicine
+- ibuprofen
+- bandages
+- Assisted triage nurses
+- attending to patients
+- Escorted patients
+- medical staff
+- welcoming environment
+- Panera
+- coordinated a team
+- delegating tasks
+- maintain
+efficient
+- front-of-house operations
+- fast service times
+- customer service
+- resolving concerns
+- ensuring accurate orders
+- Trained and mentored new team members
+- POS systems
+- service standards
+- food safety procedures
+- Managed opening and closing procedures
+- cash handling
+- register balancing
+- store readiness
+- Monitored workflow
+- improve efficiency
+- reduce wait times
+- support daily sales goals
+- Pre-Med American Medical Student Association
+- Engineering
+- First Aid
+- CPR
+- Phlebotomy Technician training
+
+ENTITIES IN RESUME ORDER:
+SKILL      -> 'Owen McCaffrey' [0:14]
+DEGREE     -> 'Bachelor of Arts: Biology' [103:128]
+DEGREE     -> 'Minor: History of Science, Technology' [174:211]
+SKILL      -> 'Medicine' [217:225]
+SCHOOL     -> 'University of Minnesota-Twin Cities' [226:261]
+SKILL      -> 'Minneapolis' [263:274]
+SCHOOL     -> 'St. Louis' [370:379]
+SKILL      -> 'Conduct patient care' [413:433]
+SKILL      -> 'Transport patients' [471:489]
+SKILL      -> 'transport' [535:544]
+SKILL      -> 'filing' [573:579]
+SKILL      -> 'faxing' [581:587]
+SKILL      -> 'photocopying' [589:601]
+JOB_TITLE  -> 'Health Advocate' [628:643]
+SKILL      -> 'Share information' [737:754]
+SKILL      -> 'refer students' [805:819]
+SKILL      -> 'health resources' [823:839]
+SKILL      -> 'increase awareness' [853:871]
+SKILL      -> 'Distribute cold medicine' [885:909]
+SKILL      -> 'ibuprofen' [911:920]
+SKILL      -> 'bandages' [922:930]
+JOB_TITLE  -> 'Patient Experience Volunteer' [965:993]
+SKILL      -> 'Assisted triage nurses' [1074:1096]
+SKILL      -> 'attending to patients' [1102:1123]
+SKILL      -> 'Escorted patients' [1164:1181]
+SKILL      -> 'medical staff' [1286:1299]
+SKILL      -> 'welcoming environment' [1330:1351]
+JOB_TITLE  -> 'Shift Lead' [1443:1453]
+SKILL      -> 'Panera' [1455:1461]
+SKILL      -> 'Minneapolis' [1463:1474]
+SKILL      -> 'coordinated a team' [1521:1539]
+SKILL      -> 'delegating tasks' [1586:1602]
+SKILL      -> 'maintain\nefficient' [1606:1624]
+SKILL      -> 'front-of-house operations' [1625:1650]
+SKILL      -> 'fast service times' [1655:1673]
+SKILL      -> 'customer service' [1698:1714]
+SKILL      -> 'resolving concerns' [1736:1754]
+SKILL      -> 'ensuring accurate orders' [1760:1784]
+SKILL      -> 'Trained and mentored new team members' [1834:1871]
+SKILL      -> 'POS systems' [1875:1886]
+SKILL      -> 'service standards' [1888:1905]
+SKILL      -> 'food safety procedures' [1911:1933]
+SKILL      -> 'Managed opening and closing procedures' [1973:2011]
+SKILL      -> 'cash handling' [2022:2035]
+SKILL      -> 'register balancing' [2037:2055]
+SKILL      -> 'store readiness' [2061:2076]
+SKILL      -> 'Monitored workflow' [2128:2146]
+SKILL      -> 'improve efficiency' [2198:2216]
+SKILL      -> 'reduce wait times' [2218:2235]
+SKILL      -> 'support daily sales goals' [2241:2266]
+SKILL      -> 'Pre-Med American Medical Student Association' [2288:2332]
+SKILL      -> 'Engineering' [2369:2380]
+SKILL      -> 'First Aid' [2445:2454]
+SKILL      -> 'CPR' [2456:2459]
+SKILL      -> 'Phlebotomy Technician training' [2515:2545]
+

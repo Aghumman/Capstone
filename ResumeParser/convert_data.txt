@@ -1,0 +1,276 @@
+import json
+import random
+from pathlib import Path
+
+import spacy
+from spacy.tokens import DocBin
+#prepares Label Studio annotations so spaCy can use them for training.
+#  It does not train the model itself
+
+INPUT_FILE = Path("data/label_Studio_initial24.json")
+TRAIN_FILE = Path("data/train.spacy")
+DEV_FILE = Path("data/dev.spacy")
+
+RANDOM_SEED = 42
+
+
+def get_annotation(task): #finds valid annotations attached to the resume
+    annotations = [
+        annotation
+        for annotation in task.get("annotations", [])
+        if not annotation.get("was_cancelled", False)
+    ]
+
+    if not annotations:
+        return None
+
+    return annotations[-1]
+
+
+def get_entities(task): #extracts actual labels from one resume
+    annotation = get_annotation(task)
+
+    if annotation is None:
+        return []
+
+    entities = []
+
+    for result in annotation.get("result", []):
+        if result.get("type") != "labels":
+            continue
+
+        value = result.get("value", {})
+
+        start = value.get("start")
+        end = value.get("end")
+        labels = value.get("labels", [])
+
+        if start is None or end is None or not labels:
+            continue
+
+        label = labels[0]
+
+        entities.append(
+            {
+                "start": start,
+                "end": end,
+                "label": label
+            }
+        )
+
+    return sorted(entities, key=lambda x: (x["start"], x["end"]))
+
+
+def find_overlaps(entities): #find overlapping entities and returns for me to fix
+    overlaps = []
+
+    for i in range(len(entities)):
+        first = entities[i]
+
+        for j in range(i + 1, len(entities)):
+            second = entities[j]
+
+            if second["start"] >= first["end"]:
+                break
+
+            if (
+                first["start"] < second["end"]
+                and second["start"] < first["end"]
+            ):
+                overlaps.append((first, second))
+
+    return overlaps
+
+
+def validate_tasks(tasks): # validates resumes and checks what are the overlaps so i can fix them
+    problems_found = False
+
+    print("\nCHECKING ANNOTATIONS")
+
+    for task in tasks:
+        text = task["data"]["text"]
+        entities = get_entities(task)
+        overlaps = find_overlaps(entities)
+
+        if overlaps:
+            problems_found = True
+
+            filename = task["data"].get(
+                "filename",
+                f"Task {task['id']}"
+            )
+
+            print(f"\nOVERLAPS FOUND IN: {filename}")
+
+            for first, second in overlaps:
+                first_text = text[first["start"]:first["end"]]
+                second_text = text[second["start"]:second["end"]]
+
+                print(
+                    f"  {first['label']}: {repr(first_text)}"
+                )
+                print(
+                    f"  {second['label']}: {repr(second_text)}"
+                )
+                print()
+
+    return not problems_found
+
+
+def create_doc(nlp, task): #takes one label studio resume and turns into one spaCY doc
+    text = task["data"]["text"]
+    filename = task["data"].get(
+        "filename",
+        f"Task {task.get('id')}"
+    )
+    entities = get_entities(task)
+
+    doc = nlp.make_doc(text)
+    spans = []
+
+    for entity in entities:
+        start = entity["start"]
+        end = entity["end"]
+        label = entity["label"]
+
+        while start < end and text[start].isspace():
+            start += 1
+
+        while end > start and text[end - 1].isspace():
+            end -= 1
+
+        if start >= end:
+            print(
+                f"Skipped empty annotation in {filename}: "
+                f"{entity}"
+            )
+            continue
+
+        span = doc.char_span(
+            start,
+            end,
+            label=label,
+            alignment_mode="strict"
+        )
+
+        if span is None:
+            span = doc.char_span(
+                start,
+                end,
+                label=label,
+                alignment_mode="contract"
+            )
+
+        if span is None or len(span) == 0:
+            print(f"\nMISALIGNED ANNOTATION IN: {filename}")
+            print(f"  Label: {label}")
+            print(f"  Text: {repr(text[start:end])}")
+            print(f"  Offsets: ({start}, {end})")
+            continue
+
+        token_start = span.start
+        token_end = span.end
+
+        while token_start < token_end and doc[token_start].is_space:
+            token_start += 1
+
+        while token_end > token_start and doc[token_end - 1].is_space:
+            token_end -= 1
+
+        if token_start >= token_end:
+            print(f"\nWHITESPACE-ONLY SPAN IN: {filename}")
+            print(f"  Label: {label}")
+            print(f"  Text: {repr(text[start:end])}")
+            continue
+
+        span = doc[token_start:token_end]
+        span.label_ = label
+
+        overlap = any(
+            span.start < existing.end
+            and span.end > existing.start
+            for existing in spans
+        )
+
+        if overlap:
+            print(f"\nTOKEN OVERLAP IN: {filename}")
+            print(f"  New: {label} -> {repr(span.text)}")
+            continue
+
+        spans.append(span)
+
+    doc.ents = spans
+
+    for span in doc.ents:
+        if span.text != span.text.strip():
+            print(f"\nINVALID WHITESPACE SPAN IN: {filename}")
+            print(f"  Label: {span.label_}")
+            print(f"  Text: {repr(span.text)}")
+
+    return doc
+
+
+def save_spacy_file(nlp, tasks, output_file): #convert to spaCY doc, attach your entities, add it to binary collection
+    doc_bin = DocBin(store_user_data=True)
+
+    for task in tasks:
+        doc = create_doc(nlp, task)
+        doc_bin.add(doc)
+
+    doc_bin.to_disk(output_file)
+
+
+def main():
+    with open(INPUT_FILE, "r", encoding="utf-8") as file:
+        tasks = json.load(file)
+
+    print(f"Loaded {len(tasks)} resumes.")
+
+    if not validate_tasks(tasks):
+        print("\nSTOPPED.")
+        print(
+            "Fix the overlapping annotations in Label Studio, "
+            "export the JSON again, and rerun this script."
+        )
+        return
+
+    random.seed(RANDOM_SEED)
+    random.shuffle(tasks)
+
+    train_tasks = tasks[:19]
+    dev_tasks = tasks[19:]
+
+    print("\nTRAINING SET:")
+    for task in train_tasks:
+        print(" ", task["data"].get("filename"))
+
+    print("\nDEVELOPMENT SET:")
+    for task in dev_tasks:
+        print(" ", task["data"].get("filename"))
+
+    nlp = spacy.blank("en")
+
+    TRAIN_FILE.parent.mkdir(parents=True, exist_ok=True)
+
+    save_spacy_file(
+        nlp,
+        train_tasks,
+        TRAIN_FILE
+    )
+
+    save_spacy_file(
+        nlp,
+        dev_tasks,
+        DEV_FILE
+    )
+
+    print("\nCreated:")
+    print(TRAIN_FILE)
+    print(DEV_FILE)
+
+    print("\nTraining resumes:", len(train_tasks))
+    print("Development resumes:", len(dev_tasks))
+
+
+if __name__ == "__main__":
+    main()

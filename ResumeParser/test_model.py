@@ -1,0 +1,159 @@
+from pathlib import Path
+
+import spacy
+import pdfplumber
+from docx import Document
+
+MODEL_PATH = Path("training_model5/model-best")
+TEST_RESUME_PATH = Path("test_resumes/new_resume.pdf")
+
+SUPPORTED_LABELS = [
+    "JOB_TITLE",
+    "SCHOOL",
+    "DEGREE",
+    "SKILL",
+]
+
+
+def extract_text_from_pdf(file_path):
+    pages = []
+
+    with pdfplumber.open(file_path) as pdf:
+        for page in pdf.pages:
+            page_text = page.extract_text()
+
+            if page_text:
+                pages.append(page_text)
+
+    return "\n".join(pages).strip()
+
+
+def extract_text_from_docx(file_path):
+    document = Document(file_path)
+
+    paragraphs = [
+        paragraph.text
+        for paragraph in document.paragraphs
+        if paragraph.text.strip()
+    ]
+
+    return "\n".join(paragraphs).strip()
+
+
+def extract_resume_text(file_path):
+    extension = file_path.suffix.lower()
+
+    if extension == ".pdf":
+        return extract_text_from_pdf(file_path)
+
+    if extension == ".docx":
+        return extract_text_from_docx(file_path)
+
+    if extension == ".txt":
+        return file_path.read_text(encoding="utf-8")
+
+    raise ValueError(
+        "Unsupported file type. Use a PDF, DOCX, or TXT file."
+    )
+
+
+def remove_duplicates(values):
+    unique_values = []
+    seen = set()
+
+    for value in values:
+        cleaned_value = value.strip()
+        normalized_value = cleaned_value.lower()
+
+        if cleaned_value and normalized_value not in seen:
+            unique_values.append(cleaned_value)
+            seen.add(normalized_value)
+
+    return unique_values
+
+
+def predict_entities(nlp, text): #Runs the trained spaCy model on the resume text.
+    # It takes the model's predictions and organizes them into 5 entities
+    doc = nlp(text)
+
+    results = {
+        label: []
+        for label in SUPPORTED_LABELS
+    }
+
+    for entity in doc.ents:
+        if entity.label_ not in results:
+            results[entity.label_] = []
+
+        results[entity.label_].append(entity.text)
+
+    for label in results:
+        results[label] = remove_duplicates(results[label])
+
+    return doc, results
+
+
+def print_results(results):
+    print("RESUME PARSER RESULTS: ")
+
+    for label in SUPPORTED_LABELS:
+        print(f"\n{label}: ")
+
+        values = results.get(label, [])
+
+        if not values:
+            print("None found")
+            continue
+
+        for value in values:
+            print(f"- {value}")
+
+
+def print_entities_in_order(doc):
+    print("ENTITIES IN RESUME ORDER: ")
+
+    if not doc.ents:
+        print("No entities found.")
+        return
+
+    for entity in doc.ents:
+        print(
+            f"{entity.label_:10} -> "
+            f"{entity.text!r} "
+            f"[{entity.start_char}:{entity.end_char}]"
+        )
+
+
+def main():
+    #check if file exist -> loads the model -> extract resume text -> runs predictions -> predict results.
+    if not MODEL_PATH.exists():
+        raise FileNotFoundError(
+            f"Model not found: {MODEL_PATH.resolve()}"
+        )
+
+    if not TEST_RESUME_PATH.exists():
+        raise FileNotFoundError(
+            f"Test resume not found: {TEST_RESUME_PATH.resolve()}"
+        )
+
+    print(f"Loading model from: {MODEL_PATH.resolve()}")
+    nlp = spacy.load(MODEL_PATH)
+
+    print(f"Reading resume from: {TEST_RESUME_PATH.resolve()}")
+    resume_text = extract_resume_text(TEST_RESUME_PATH)
+
+    if not resume_text:
+        raise ValueError(
+            "No text could be extracted from the test resume."
+        )
+
+    print(f"Extracted {len(resume_text)} characters.")
+
+    doc, results = predict_entities(nlp, resume_text)
+
+    print_results(results)
+    print_entities_in_order(doc)
+
+
+if __name__ == "__main__":
+    main()

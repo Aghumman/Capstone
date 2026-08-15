@@ -1,0 +1,66 @@
+{
+  "lang": "en",
+  "name": "pipeline",
+  "version": "0.0.0",
+  "spacy_version": ">=3.8.14,<3.9.0",
+  "description": "",
+  "author": "",
+  "email": "",
+  "url": "",
+  "license": "",
+  "spacy_git_version": "Unknown",
+  "vectors": {
+    "width": 0,
+    "vectors": 0,
+    "keys": 0,
+    "name": null,
+    "mode": "default"
+  },
+  "labels": {
+    "tok2vec": [],
+    "ner": [
+      "DEGREE",
+      "JOB_TITLE",
+      "SCHOOL",
+      "SKILL"
+    ]
+  },
+  "pipeline": [
+    "tok2vec",
+    "ner"
+  ],
+  "components": [
+    "tok2vec",
+    "ner"
+  ],
+  "disabled": [],
+  "performance": {
+    "ents_f": 0.47682502896871376,
+    "ents_p": 0.48411764705882354,
+    "ents_r": 0.4697488584474886,
+    "ents_per_type": {
+      "SCHOOL": {
+        "p": 0.6153846153846154,
+        "r": 0.2222222222222222,
+        "f": 0.326530612244898
+      },
+      "DEGREE": {
+        "p": 0.5714285714285714,
+        "r": 0.32653061224489793,
+        "f": 0.41558441558441556
+      },
+      "JOB_TITLE": {
+        "p": 0.5473684210526316,
+        "r": 0.5048543689320388,
+        "f": 0.5252525252525252
+      },
+      "SKILL": {
+        "p": 0.47762148337595906,
+        "r": 0.47762148337595906,
+        "f": 0.477621483375959
+      }
+    },
+    "tok2vec_loss": 3160.015674008988,
+    "ner_loss": 3496.78125
+  }
+}
