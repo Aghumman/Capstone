@@ -15,3 +15,6 @@
 -- test
 SELECT *
 FROM candidate;
+
+SELECT *
+FROM skill

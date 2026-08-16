@@ -5,6 +5,8 @@ from docx import Document
 import spacy
 import re
 import psycopg2
+import os
+from dotenv import load_dotenv
 
 
 app = Flask(__name__)
@@ -366,7 +368,8 @@ def parse_resume_api():
         }), 500
 
 # 
-DB_URI = "postgresql://postgres:Jn&3Tv5a8KJkDn2@db.sbowuvozgfrjsezqiqfa.supabase.co:5432/postgres"
+load_dotenv("database/.env")
+DB_URI = os.getenv("DATABASE_URI")
 
 def insert_data(data):
     if hasattr(data, 'get_json'):
@@ -438,8 +441,8 @@ def insert_data(data):
                 degree = degrees[i] if i < len(degrees) else None
 
                 cursor.execute("""
-                INSERT INTO education (school, degree, resume_id)
-                VALUES (%s, %s, %s);
+                    INSERT INTO education (school, degree, resume_id)
+                    VALUES (%s, %s, %s);
                 """, (school, degree, resume_id))
 
             conn.commit()
@@ -454,7 +457,45 @@ def insert_data(data):
             conn.rollback()
 
         return jsonify({
-        "error": str(error)
+            "error": str(error)
+        }), 500
+
+    finally:
+        if conn is not None:
+            conn.close()
+
+def get_ranking():
+    conn = None
+    try:
+        conn = psycopg2.connect(DB_URI)
+        with conn.cursor() as cursor:
+
+            # get ranking report from database
+            cursor.execute("""
+                SELECT
+                    candidate.id,
+                    candidate.name,
+                    candidate_score.job_id,
+                    candidate_score.score
+                FROM candidate_score
+                JOIN candidate on candidate.id = candidate_score.candidate_id
+                ORDER BY score DESC
+                LIMIT 10;
+            """)
+            report = cursor.fetchall()
+
+            conn.commit()
+
+            return {
+                report
+            }
+
+    except Exception as error:
+        if conn is not None:
+            conn.rollback()
+
+        return jsonify({
+            "error": str(error)
         }), 500
 
     finally:
