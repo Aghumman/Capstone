@@ -369,7 +369,8 @@ def parse_resume_api():
 
 # 
 load_dotenv("database/.env")
-DB_URI = os.getenv("DATABASE_URI")
+DEFAULT_URI = "postgresql://postgres:Jn&3Tv5a8KJkDn2@db.sbowuvozgfrjsezqiqfa.supabase.co:5432/postgres"
+DB_URI = os.getenv("DATABASE_URI", DEFAULT_URI)
 
 def insert_data(data):
     if hasattr(data, 'get_json'):
