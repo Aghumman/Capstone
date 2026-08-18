@@ -1,40 +1,3 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-
-SKILLS = [
-    "python", "react", "sql", "machine learning", "javascript", "html", "css",
-    "cisco", "cisco routers", "cisco switches", "networking", "network security",
-    "firewall", "vpn", "wan", "lan", "voip", "help desk", "it support",
-    "vendor management", "budget", "change management", "troubleshoot",
-    "windows server", "linux", "pci compliance", "network engineer"
-]
-
-
-
-def extract_skills(text):
-    text = text.lower()
-    res = []
-    for skill in SKILLS:
-        if skill in text:
-            res.append(skill)
-    return res
-
-def load_text(path):
-
-    with open(path, encoding="utf-8") as f:
-        return f.read()
-
-def compute_cosine_scores(job_text, resume_texts):
-    documents = [job_text] + resume_texts
-
-    vectorizer = TfidfVectorizer(stop_words="english")
-    tfidf_matrix = vectorizer.fit_transform(documents)
-
-    job_vector = tfidf_matrix[0:1]
-    resume_vectors = tfidf_matrix[1:]
-    scores = cosine_similarity(job_vector, resume_vectors)
-    return scores.flatten()
-
 def jaccard_similarity(set_a, set_b):
     set_a, set_b = set(set_a), set(set_b)
     if not set_a and not set_b:
@@ -95,20 +58,20 @@ def score_resume(job_skills, resume_skills, job_degree, resume_degrees):
 
     matched = sorted(job_skills_set & resume_skills_set)
     missing = sorted(job_skills_set - resume_skills_set)
-    jaccard = jaccard_similarity(job_skills_set, matched)
+    coverage = jaccard_similarity(job_skills_set, matched)
 
     degree_score = degree_match_score(job_degree, resume_degrees)
-    combined = jaccard if degree_score == 1 else (jaccard / 2)
+    combined = coverage if degree_score == 1 else (coverage / 2)
 
     feedback = generate_feedback(matched, missing, combined)
     if degree_score == 0:
         feedback += f" Candidate does not meet the required degree level ({job_degree})."
 
     return {
-        "jaccard_score": round(float(jaccard), 3),
+        "coverage_score": round(float(coverage), 3),
         "degree_match": bool(degree_score),
         "combined_score": round(float(combined), 3),
         "matched_skills": matched,
         "missing_skills": missing,
-        "feedback": generate_feedback(matched, missing, round(float(combined), 3)),
+        "feedback": feedback,
     }
