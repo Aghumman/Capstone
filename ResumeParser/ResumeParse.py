@@ -192,6 +192,16 @@ def predict_resume_entities(text):
 
     return results
 
+def predict_job_description_skills(text):
+    doc = nlp(text)
+
+    skills = []
+
+    for entity in doc.ents:
+        if entity.label_ == "SKILL":
+            skills.append(entity.text)
+
+    return remove_duplicates(skills)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -367,6 +377,50 @@ def parse_resume_api():
             "error": str(error)
         }), 500
 
+    
+@app.route("/parse-job-description", methods=["POST"])
+def parse_job_description_api():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({
+            "error": "No job data provided"
+        }), 400
+
+    job_title = data.get("job_title")
+    degree = data.get("degree")
+    description = data.get("description")
+
+    if not job_title:
+        return jsonify({
+            "error": "Job title is required"
+        }), 400
+
+    if not degree:
+        return jsonify({
+            "error": "Degree is required"
+        }), 400
+
+    if not description:
+        return jsonify({
+            "error": "Job description is required"
+        }), 400
+
+    skills = predict_job_description_skills(
+        description
+    )
+
+    results = {
+        "job_title": job_title,
+        "degree": degree,
+        "description": description,
+        "skills": skills
+    }
+
+    print("\nJOB DESCRIPTION RESULTS:")
+    print(results)
+
+    return jsonify(results)
 # 
 load_dotenv("database/.env")
 DEFAULT_URI = "postgresql://postgres:Jn&3Tv5a8KJkDn2@db.sbowuvozgfrjsezqiqfa.supabase.co:5432/postgres"
@@ -483,7 +537,7 @@ def get_ranking():
             conn.commit()
 
             return {
-                report
+                "report" : report
             }
 
     except Exception as error:
