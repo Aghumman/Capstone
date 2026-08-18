@@ -7,6 +7,7 @@ import re
 import psycopg2
 import os
 from dotenv import load_dotenv
+from scoring import score_resume
 
 
 app = Flask(__name__)
@@ -377,7 +378,7 @@ def parse_resume_api():
             "error": str(error)
         }), 500
 
-    
+
 @app.route("/parse-job-description", methods=["POST"])
 def parse_job_description_api():
     data = request.get_json()
@@ -421,7 +422,62 @@ def parse_job_description_api():
     print(results)
 
     return jsonify(results)
-# 
+
+@app.route("/score-resume", methods=["POST"])
+def score_resume_api():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+
+    candidate_id = data.get("candidate_id")
+    job_id = data.get("job_id")
+    job_text = data.get("job_description")
+    resume_text = data.get("resume_text")
+
+    if not candidate_id:
+        return jsonify({"error": "candidate_id is required"}), 400
+    if not job_id:
+        return jsonify({"error": "job_id is required"}), 400
+    if not job_text:
+        return jsonify({"error": "job_description is required"}), 400
+    if not resume_text:
+        return jsonify({"error": "resume_text is required"}), 400
+
+    try:
+        result = score_resume(job_text, resume_text)
+
+        db_result = insert_score(candidate_id, job_id, result)
+
+        if isinstance(db_result, tuple):
+            return db_result
+
+        result["score_id"] = db_result["score_id"]
+
+        return jsonify(result)
+
+    except Exception as error:
+        return jsonify({"error": str(error)}), 500
+
+@app.route("/ranking", methods=["GET"])
+def ranking_api():
+    result = get_ranking()
+
+    if isinstance(result, tuple):
+        return result
+
+    report = [
+        {
+            "candidate_id": row[0],
+            "candidate_name": row[1],
+            "job_id": row[2],
+            "score": float(row[3]),
+        }
+        for row in result["report"]
+    ]
+
+    return jsonify({"report": report})
+
 load_dotenv("database/.env")
 DEFAULT_URI = "postgresql://postgres:Jn&3Tv5a8KJkDn2@db.sbowuvozgfrjsezqiqfa.supabase.co:5432/postgres"
 DB_URI = os.getenv("DATABASE_URI", DEFAULT_URI)
@@ -510,6 +566,27 @@ def insert_data(data):
             "error": str(error)
         }), 500
 
+    finally:
+        if conn is not None:
+            conn.close()
+
+def insert_score(candidate_id, job_id, score_result):
+    conn = None
+    try:
+        conn = psycopg2.connect(DB_URI)
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO candidate_score (candidate_id, job_id, score)
+                VALUES (%s, %s, %s)
+                RETURNING id;
+            """, (candidate_id, job_id, score_result["combined_score"]))
+            score_id = cursor.fetchone()[0]
+            conn.commit()
+            return {"score_id": score_id}
+    except Exception as error:
+        if conn is not None:
+            conn.rollback()
+        return jsonify({"error": str(error)}), 500
     finally:
         if conn is not None:
             conn.close()
