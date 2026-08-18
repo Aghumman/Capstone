@@ -8,7 +8,6 @@
 
 DROP DATABASE IF EXISTS ResumeReaderDB;
 CREATE DATABASE ResumeReaderDB;
--- USE ResumeReaderDB;
 
 -- Enable RLS for each table, the following code allow the database to be tested
 CREATE OR REPLACE FUNCTION enable_rls_for_testing()
@@ -63,7 +62,9 @@ CREATE TABLE job (
         MINVALUE 200000
         MAXVALUE 299999
     ) PRIMARY KEY,
+    title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
     position VARCHAR(20) CHECK (position IN ('Intern', 'Junior', 'Senior', 'Manager')),
+    degree_required VARCHAR(20) CHECK (position IN ('High School', 'Trade School', 'Certificate', 'Associate', 'Bachelor', 'Master', 'Doctorate')),
     salary INT,
 	employer_id INT,
     description TEXT,
@@ -103,7 +104,7 @@ CREATE TABLE resume_job_title (
         MINVALUE 700000
         MAXVALUE 799999
     ) PRIMARY KEY,
-    title VARCHAR(150) NOT NULL,
+    title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
     resume_id INT NOT NULL,
     FOREIGN KEY(resume_id) REFERENCES resume(id)
 );

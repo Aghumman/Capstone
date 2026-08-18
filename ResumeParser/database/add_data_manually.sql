@@ -3,9 +3,9 @@
 INSERT INTO employer (company, location) VALUES
 ('Google',   'New York, NY');
 
-INSERT INTO job (position, salary, employer_id, description) VALUES
-('Intern',  3000,   100000,   'Assign with mentor to assit with projects'),
-('Manager', 140000, 100000,   '');
+INSERT INTO job (title, position, degree_required, salary, employer_id, description) VALUES
+('Software Engineer Intern',    'Intern',   'Associate',    3000,   100000,   'Assign with mentor to assit with projects'),
+('Project Manager',             'Manager',  'Bachelor',     140000, 100000,   '');
 
 INSERT INTO candidate (name, phone, email) VALUES
 ('Alice',    '888-777-9999',   'alice@gmail.com'),

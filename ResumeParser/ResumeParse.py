@@ -438,11 +438,6 @@ def insert_data(data):
     schools = data.get("schools", [])
     degrees = data.get("degrees", [])
 
-    # name = "test"
-    # email = "test@gmail.com"
-    # phone = "000-000-0000"
-    # skills = ["test1", "test2", "test3"]
-
     conn = None
     try:
         conn = psycopg2.connect(DB_URI)
