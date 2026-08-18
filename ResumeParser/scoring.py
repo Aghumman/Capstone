@@ -9,6 +9,8 @@ SKILLS = [
     "windows server", "linux", "pci compliance", "network engineer"
 ]
 
+
+
 def extract_skills(text):
     text = text.lower()
     res = []
@@ -44,7 +46,7 @@ def jaccard_similarity(set_a, set_b):
 def generate_feedback(matched_skills, missing_skills, combined_score):
     feedback = []
 
-    if combined_score >= 0.7:
+    if combined_score >= 0.85:
         feedback.append("Strong overall match for this role.")
     elif combined_score >= 0.4:
         feedback.append("Moderate match — some relevant skills present, but notable gaps remain.")
@@ -61,36 +63,52 @@ def generate_feedback(matched_skills, missing_skills, combined_score):
 
     return " ".join(feedback)
 
-def score_resume(job_text, resume_text):
-    cosine = compute_cosine_scores(job_text, [resume_text])[0]
-    job_skills = set(extract_skills(job_text))
-    resume_skills = set(extract_skills(resume_text))
-    jaccard = jaccard_similarity(job_skills, resume_skills)
+DEGREE_LEVELS = {
+    "high school": 1,
+    "associate": 2, "as": 2, "aa": 2, "a.a": 2, "a.s": 2,
+    "bachelor": 3, "bs": 3, "ba": 3, "b.s": 3, "b.a": 3,
+    "master": 4, "ms": 4, "ma": 4, "mba": 4, "m.s": 4, "m.a": 4, "m.b.a": 4,
+    "phd": 5, "doctorate": 5, "ph.d": 5,
+}
 
-    matched = sorted(job_skills & resume_skills)
-    missing = sorted(job_skills - resume_skills)
+def degree_level(degree_text):
+    if not degree_text:
+        return 0
+    text = degree_text.lower()
+    return max(
+        (level for keyword, level in DEGREE_LEVELS.items() if keyword in text),
+        default=0,
+    )
+
+def degree_match_score(required_degree, candidate_degrees):
+    required_level = degree_level(required_degree)
+    if required_level == 0:
+        return 1
+    if not candidate_degrees:
+        return 0
+    candidate_level = max(degree_level(d) for d in candidate_degrees)
+    return 1 if candidate_level >= required_level else 0
+
+def score_resume(job_skills, resume_skills, job_degree, resume_degrees):
+    job_skills_set = {s.lower().strip() for s in job_skills}
+    resume_skills_set = {s.lower().strip() for s in resume_skills}
+
+    matched = sorted(job_skills_set & resume_skills_set)
+    missing = sorted(job_skills_set - resume_skills_set)
+    jaccard = jaccard_similarity(job_skills_set, matched)
+
+    degree_score = degree_match_score(job_degree, resume_degrees)
+    combined = jaccard if degree_score == 1 else (jaccard / 2)
+
+    feedback = generate_feedback(matched, missing, combined)
+    if degree_score == 0:
+        feedback += f" Candidate does not meet the required degree level ({job_degree})."
 
     return {
-        "cosine_score": round(float(cosine), 3),
         "jaccard_score": round(float(jaccard), 3),
-        "combined_score": round(float((cosine + jaccard) / 2), 3),
+        "degree_match": bool(degree_score),
+        "combined_score": round(float(combined), 3),
         "matched_skills": matched,
         "missing_skills": missing,
-        "feedback": generate_feedback(matched, missing, round(float((cosine + jaccard) / 2), 3)),
+        "feedback": generate_feedback(matched, missing, round(float(combined), 3)),
     }
-
-if __name__ == "__main__":
-    job_text = load_text("data/job_description_it_director.txt")
-    resume_paths = ["data/real_resumes/data/INFORMATION-TECHNOLOGY/15651486.txt", "data/real_resumes/data/INFORMATION-TECHNOLOGY/90867631.txt", "data/real_resumes/data/INFORMATION-TECHNOLOGY/51639418.txt"]
-    resume_texts = [load_text(p) for p in resume_paths]
-
-    scores = [score_resume(job_text, resume_text) for resume_text in resume_texts]
-
-    for path, result in zip(resume_paths, scores):
-        print(f"\n{path}")
-        print(f"  Cosine score: {result['cosine_score']:.2f}")
-        print(f"  Jaccard score: {result['jaccard_score']:.2f}")
-        print(f"  Combined score: {result['combined_score']:.2f}")
-        print(f"  Matched skills: {result['matched_skills']}")
-        print(f"  Missing skills: {result['missing_skills']}")
-        print(f"  Feedback: {result['feedback']}")

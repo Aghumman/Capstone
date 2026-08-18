@@ -442,34 +442,41 @@ def score_resume_api():
     if not data:
         return jsonify({"error": "No data provided"}), 400
 
-    candidate_id = data.get("candidate_id")
     job_id = data.get("job_id")
-    job_text = data.get("job_description")
-    resume_text = data.get("resume_text")
+    resume_id = data.get("resume_id")
 
-    if not candidate_id:
-        return jsonify({"error": "candidate_id is required"}), 400
     if not job_id:
         return jsonify({"error": "job_id is required"}), 400
-    if not job_text:
-        return jsonify({"error": "job_description is required"}), 400
-    if not resume_text:
-        return jsonify({"error": "resume_text is required"}), 400
+    if not resume_id:
+        return jsonify({"error": "resume_id is required"}), 400
+
+    job_details = get_job_details(job_id)
+    if isinstance(job_details, tuple):
+        return job_details
+
+    resume_details = get_resume_details(resume_id)
+    if isinstance(resume_details, tuple):
+        return resume_details
 
     try:
-        result = score_resume(job_text, resume_text)
-
-        db_result = insert_score(candidate_id, job_id, result)
-
-        if isinstance(db_result, tuple):
-            return db_result
-
-        result["score_id"] = db_result["score_id"]
-
-        return jsonify(result)
-
+        result = score_resume(
+            job_skills = job_details["skills"],
+            resume_skills = resume_details["skills"],
+            job_degree = job_details["degree_required"],
+            resume_degrees = resume_details["degrees"],
+        )
     except Exception as error:
         return jsonify({"error": str(error)}), 500
+
+    db_result = insert_score(resume_details["candidate_id"], job_id, result)
+    if isinstance(db_result, tuple):
+        return db_result
+
+    result["score_id"] = db_result["score_id"]
+    result["candidate_id"] = resume_details["candidate_id"]
+    result["job_id"] = job_id
+
+    return jsonify(result)
 
 @app.route("/ranking", methods=["GET"])
 def ranking_api():
@@ -598,6 +605,70 @@ def insert_score(candidate_id, job_id, score_result):
     except Exception as error:
         if conn is not None:
             conn.rollback()
+        return jsonify({"error": str(error)}), 500
+    finally:
+        if conn is not None:
+            conn.close()
+
+def get_job_details(job_id):
+    conn = None
+    try:
+        conn = psycopg2.connect(DB_URI)
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                SELECT degree_required FROM job WHERE id = %s;
+            """, (job_id,))
+            row = cursor.fetchone()
+
+            if row is None:
+                return jsonify({"error": "Job not found"}), 404
+
+            cursor.execute("""
+                SELECT name FROM job_skill WHERE job_id = %s;
+            """, (job_id,))
+            skills = [r[0] for r in cursor.fetchall()]
+
+            return {"degree_required": row[0], "skills": skills}
+
+    except Exception as error:
+        return jsonify({"error": str(error)}), 500
+    finally:
+        if conn is not None:
+            conn.close()
+
+
+def get_resume_details(resume_id):
+    conn = None
+    try:
+        conn = psycopg2.connect(DB_URI)
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                SELECT candidate_id FROM resume WHERE id = %s;
+            """, (resume_id,))
+            row = cursor.fetchone()
+
+            if row is None:
+                return jsonify({"error": "Resume not found"}), 404
+
+            candidate_id = row[0]
+
+            cursor.execute("""
+                SELECT name FROM skill WHERE resume_id = %s;
+            """, (resume_id,))
+            skills = [r[0] for r in cursor.fetchall()]
+
+            cursor.execute("""
+                SELECT degree FROM education WHERE resume_id = %s AND degree IS NOT NULL;
+            """, (resume_id,))
+            degrees = [r[0] for r in cursor.fetchall()]
+
+            return {
+                "candidate_id": candidate_id,
+                "skills": skills,
+                "degrees": degrees,
+            }
+
+    except Exception as error:
         return jsonify({"error": str(error)}), 500
     finally:
         if conn is not None:
