@@ -63,7 +63,9 @@ CREATE TABLE job (
         MINVALUE 200000
         MAXVALUE 299999
     ) PRIMARY KEY,
+    title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
     position VARCHAR(20) CHECK (position IN ('Intern', 'Junior', 'Senior', 'Manager')),
+    degree_required VARCHAR(150),
     salary INT,
 	employer_id INT,
     description TEXT,
@@ -103,7 +105,7 @@ CREATE TABLE resume_job_title (
         MINVALUE 700000
         MAXVALUE 799999
     ) PRIMARY KEY,
-    title VARCHAR(150) NOT NULL,
+    title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
     resume_id INT NOT NULL,
     FOREIGN KEY(resume_id) REFERENCES resume(id)
 );

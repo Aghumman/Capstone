@@ -1,6 +1,5 @@
 
 
-
 -- Ranking Query --
 -- SELECT
 --     candidate.id,
@@ -18,3 +17,10 @@ FROM candidate;
 
 SELECT *
 FROM skill
+
+-- Clear table AND reset auto-incrementing primary key IDs
+-- TRUNCATE TABLE job RESTART IDENTITY CASCADE;
+
+-- ALTER TABLE job
+-- ADD COLUMN title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
+-- ADD COLUMN degree_required VARCHAR(150);
