@@ -64,7 +64,7 @@ CREATE TABLE job (
     ) PRIMARY KEY,
     title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
     position VARCHAR(20) CHECK (position IN ('Intern', 'Junior', 'Senior', 'Manager')),
-    degree_required VARCHAR(20) CHECK (position IN ('High School', 'Trade School', 'Certificate', 'Associate', 'Bachelor', 'Master', 'Doctorate')),
+    degree_required VARCHAR(20) CHECK (degree_required IN ('High School', 'Trade School', 'Certificate', 'Associate', 'Bachelor', 'Master', 'Doctorate')),
     salary INT,
 	employer_id INT,
     description TEXT,
@@ -92,7 +92,7 @@ CREATE TABLE resume (
         MINVALUE 400000
         MAXVALUE 499999
     ) PRIMARY KEY,
-    candidate_id INT,
+    candidate_id INT NOT NULL,
     FOREIGN KEY(candidate_id) REFERENCES candidate(id)
 );
 
@@ -109,6 +109,18 @@ CREATE TABLE resume_job_title (
     FOREIGN KEY(resume_id) REFERENCES resume(id)
 );
 
+DROP TABLE IF EXISTS job_skill CASCADE;
+CREATE TABLE job_skill (
+    id INT GENERATED ALWAYS AS IDENTITY (
+        START WITH 800000
+        MINVALUE 800000
+        MAXVALUE 899999
+    ) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    job_id INT NOT NULL,
+    FOREIGN KEY(job_id) REFERENCES job(id)
+);
+
 -- Candidate Score table
 DROP TABLE IF EXISTS candidate_score CASCADE;
 CREATE TABLE candidate_score (
@@ -117,10 +129,12 @@ CREATE TABLE candidate_score (
         MINVALUE 500000
         MAXVALUE 599999
     ) PRIMARY KEY,
-    score FLOAT,
-    candidate_id INT,
-	job_id INT,
+    score FLOAT NOT NULL,
+    candidate_id INT NOT NULL,
+    resume_id INT NOT NULL,
+	job_id INT NOT NULL,
     FOREIGN KEY(candidate_id) REFERENCES candidate(id),
+    FOREIGN KEY(resume_id) REFERENCES resume(id),
 	FOREIGN KEY(job_id) REFERENCES job(id)
 );
 
@@ -134,7 +148,7 @@ CREATE TABLE education (
     ) PRIMARY KEY,
     school VARCHAR(100),
     degree VARCHAR(150),
-	resume_id INT,
+	resume_id INT NOT NULL,
     FOREIGN KEY(resume_id) REFERENCES resume(ID)
 );
 
@@ -146,7 +160,7 @@ CREATE TABLE skill (
         MINVALUE 1000000
         MAXVALUE 1999999
     ) PRIMARY KEY,
-    name VARCHAR(100),
-    resume_id INT,
+    name VARCHAR(100) NOT NULL,
+    resume_id INT NOT NULL,
     FOREIGN KEY(resume_id) REFERENCES resume(id)
 );

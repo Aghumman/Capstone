@@ -350,6 +350,7 @@ def parse_resume_api():
 
         results = {
             "filename": uploaded_file.filename,
+            "resume_text" :extracted_text,
             "email": contact_info["email"],
             "phone": contact_info["phone"],
             "linkedin": contact_info["linkedin"],
@@ -411,7 +412,18 @@ def parse_job_description_api():
         description
     )
 
+    database_result = insert_job(
+    job_title,
+    degree,
+    description,
+    skills
+)
+
+    if isinstance(database_result, tuple):
+        return database_result
+
     results = {
+        "job_id": database_result["job_id"],
         "job_title": job_title,
         "degree": degree,
         "description": description,
@@ -629,6 +641,58 @@ def get_ranking():
         if conn is not None:
             conn.close()
 
+def insert_job(job_title, degree, description, skills):
+    conn = None
+
+    try:
+        conn = psycopg2.connect(DB_URI)
+
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO job (
+                    title,
+                    degree_required,
+                    description
+                )
+                VALUES (%s, %s, %s)
+                RETURNING id;
+            """, (
+                job_title,
+                degree,
+                description
+            ))
+
+            job_id = cursor.fetchone()[0]
+
+            for skill in skills:
+                cursor.execute("""
+                    INSERT INTO job_skill (
+                        name,
+                        job_id
+                    )
+                    VALUES (%s, %s);
+                """, (
+                    skill,
+                    job_id
+                ))
+
+        conn.commit()
+
+        return {
+            "job_id": job_id
+        }
+
+    except Exception as error:
+        if conn is not None:
+            conn.rollback()
+
+        return jsonify({
+            "error": str(error)
+        }), 500
+
+    finally:
+        if conn is not None:
+            conn.close()
 
 if __name__ == "__main__":
     app.run(debug=True)
