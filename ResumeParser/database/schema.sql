@@ -119,8 +119,10 @@ CREATE TABLE candidate_score (
     ) PRIMARY KEY,
     score FLOAT,
     candidate_id INT,
+    resume_id INT,
 	job_id INT,
     FOREIGN KEY(candidate_id) REFERENCES candidate(id),
+    FOREIGN KEY(resume_id) REFERENCES resume(id),
 	FOREIGN KEY(job_id) REFERENCES job(id)
 );
 
