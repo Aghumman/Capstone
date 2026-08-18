@@ -12,49 +12,97 @@
 -- ORDER BY score DESC
 -- LIMIT 10;
 
+-- DROP TABLE IF EXISTS job_skill CASCADE;
+-- CREATE TABLE job_skill (
+--     id INT GENERATED ALWAYS AS IDENTITY (
+--         START WITH 800000
+--         MINVALUE 800000
+--         MAXVALUE 899999
+--     ) PRIMARY KEY,
+--     name VARCHAR(100) NOT NULL,
+--     job_id INT NOT NULL,
+--     FOREIGN KEY(job_id) REFERENCES job(id)
+-- );
+
 -- test
 SELECT *
-FROM candidate;
+FROM candidate
+ORDER BY id DESC
+LIMIT 5;
+
+SELECT *
+FROM resume
+ORDER BY id DESC
+LIMIT 5;
+
+SELECT *
+FROM resume_job_title
+WHERE resume_id = 400000;
+
+SELECT *
+FROM education
+WHERE resume_id = 400000;
 
 SELECT *
 FROM skill
+WHERE resume_id = 400000;
 
--- Instantly empties the table
--- TRUNCATE TABLE candidate;
+SELECT COUNT(*)
+FROM skill
+WHERE resume_id = 400000;
 
--- Clear table AND reset auto-incrementing primary key IDs back to 1
--- TRUNCATE TABLE job RESTART IDENTITY CASCADE;
 
--- ALTER TABLE job
--- ADD COLUMN title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
--- ADD COLUMN degree_required VARCHAR(150);
 
--- DROP TABLE IF EXISTS job CASCADE;
--- CREATE TABLE job (
---     id INT GENERATED ALWAYS AS IDENTITY (
---         START WITH 200000
---         MINVALUE 200000
---         MAXVALUE 299999
---     ) PRIMARY KEY,
---     title VARCHAR(150) NOT NULL,
---     position VARCHAR(20) CHECK (position IN ('Intern', 'Junior', 'Senior', 'Manager')),
---     degree_required VARCHAR(150),
---     salary INT,
--- 	employer_id INT,
---     description TEXT,
--- 	FOREIGN KEY(employer_id) REFERENCES employer(id)
--- );
+-- SELECT *
+-- FROM job
+-- ORDER BY id DESC
+-- LIMIT 5;
 
--- INSERT INTO resume (candidate_id) VALUES
--- (300001),
--- (300003),
--- (300002);
+-- SELECT *
+-- FROM job_skill
+-- ORDER BY id DESC
+-- LIMIT 5;
 
--- INSERT INTO job (title, position, degree_required, salary, employer_id, description) VALUES
--- ('Software Engineer Intern',    'Intern',   'Associate',    3000,   100000,   'Assign with mentor to assit with projects'),
--- ('Project Manager',             'Manager',  'Bachelor',     140000, 100000,   '');
+-- SELECT *
+-- FROM candidate_score
+-- ORDER BY id DESC
+-- LIMIT 5;
 
--- INSERT INTO candidate_score (score, candidate_id, job_id) VALUES
--- (70,    300001, 200000),
--- (93,    300003, 200000),
--- (85,    300002, 200000);
+
+-- inserting into candidate score
+
+-- load_dotenv("database/.env")
+-- DEFAULT_URI = "postgresql://postgres:Jn&3Tv5a8KJkDn2@db.sbowuvozgfrjsezqiqfa.supabase.co:5432/postgres"
+-- DB_URI = os.getenv("DATABASE_URI", DEFAULT_URI)
+
+-- def inser_score():
+
+--     conn = None
+--     try:
+--         conn = psycopg2.connect(DB_URI)
+--         with conn.cursor() as cursor:
+
+--             cursor.execute("""
+--                 INSERT INTO candidate_score (score, candidate_id, resume_id, job_id)
+--                 VALUES (%s, %s, %s, %s)
+--                 RETURNING id;
+--             """, (score, candidate_id, resume_id, job_id,))
+
+--             conn.commit()
+
+--             return {
+--                 "candidate_id": candidate_id,
+--                 "resume_id": resume_id
+--             }
+
+--     except Exception as error:
+--         if conn is not None:
+--             conn.rollback()
+
+--         return jsonify({
+--             "error": str(error)
+--         }), 500
+
+--     finally:
+--         if conn is not None:
+--             conn.close()

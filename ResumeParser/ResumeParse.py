@@ -468,7 +468,7 @@ def score_resume_api():
     except Exception as error:
         return jsonify({"error": str(error)}), 500
 
-    db_result = insert_score(resume_details["candidate_id"], job_id, result)
+    db_result = insert_score(resume_details["candidate_id"], job_id, result, resume_id)
     if isinstance(db_result, tuple):
         return db_result
 
@@ -589,23 +589,26 @@ def insert_data(data):
         if conn is not None:
             conn.close()
 
-def insert_score(candidate_id, job_id, score_result):
+def insert_score(candidate_id, job_id, score_result, resume_id):
     conn = None
     try:
         conn = psycopg2.connect(DB_URI)
         with conn.cursor() as cursor:
+
             cursor.execute("""
                 INSERT INTO candidate_score (candidate_id, job_id, score)
-                VALUES (%s, %s, %s)
+                VALUES (%s, %s, %s, %s)
                 RETURNING id;
-            """, (candidate_id, job_id, score_result["combined_score"]))
+            """, (score_result["combined_score"], candidate_id, resume_id, job_id,))
             score_id = cursor.fetchone()[0]
             conn.commit()
             return {"score_id": score_id}
+        
     except Exception as error:
         if conn is not None:
             conn.rollback()
         return jsonify({"error": str(error)}), 500
+    
     finally:
         if conn is not None:
             conn.close()
@@ -714,25 +717,35 @@ def get_ranking():
 
 def insert_job(job_title, degree, description, skills):
     conn = None
-
     try:
         conn = psycopg2.connect(DB_URI)
-
         with conn.cursor() as cursor:
+
+# title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
+#     position VARCHAR(20) CHECK (position IN ('Intern', 'Junior', 'Senior', 'Manager')),
+#     degree_required VARCHAR(20) CHECK (degree_required IN ('High School', 'Trade School', 'Certificate', 'Associate', 'Bachelor', 'Master', 'Doctorate')),
+#     salary INT,
+# 	employer_id INT,
+#     description TEXT,
             cursor.execute("""
                 INSERT INTO job (
                     title,
+                    position,
                     degree_required,
+                    salary,
+                    employer_id,
                     description
                 )
-                VALUES (%s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s)
                 RETURNING id;
             """, (
                 job_title,
+                "None",
                 degree,
+                0,
+                100000,
                 description
             ))
-
             job_id = cursor.fetchone()[0]
 
             for skill in skills:
