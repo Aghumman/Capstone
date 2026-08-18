@@ -1,6 +1,19 @@
 
-
-
+DROP TABLE IF EXISTS job CASCADE;
+CREATE TABLE job (
+    id INT GENERATED ALWAYS AS IDENTITY (
+        START WITH 200000
+        MINVALUE 200000
+        MAXVALUE 299999
+    ) PRIMARY KEY,
+    title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
+    position VARCHAR(20) CHECK (position IN ('Intern', 'Junior', 'Senior', 'Manager')),
+    degree_required VARCHAR(20) CHECK (degree_required IN ('High School', 'Trade School', 'Certificate', 'Associate', 'Bachelor', 'Master', 'Doctorate')),
+    salary INT,
+    employer_id INT,
+    description TEXT,
+    FOREIGN KEY(employer_id) REFERENCES employer(id)
+);
 -- Ranking Query --
 -- SELECT
 --     candidate.id,
@@ -12,17 +25,6 @@
 -- ORDER BY score DESC
 -- LIMIT 10;
 
--- DROP TABLE IF EXISTS job_skill CASCADE;
--- CREATE TABLE job_skill (
---     id INT GENERATED ALWAYS AS IDENTITY (
---         START WITH 800000
---         MINVALUE 800000
---         MAXVALUE 899999
---     ) PRIMARY KEY,
---     name VARCHAR(100) NOT NULL,
---     job_id INT NOT NULL,
---     FOREIGN KEY(job_id) REFERENCES job(id)
--- );
 
 -- test
 SELECT *
@@ -50,6 +52,9 @@ WHERE resume_id = 400000;
 SELECT COUNT(*)
 FROM skill
 WHERE resume_id = 400000;
+
+
+
 
 
 

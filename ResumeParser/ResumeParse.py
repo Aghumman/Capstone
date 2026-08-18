@@ -413,11 +413,11 @@ def parse_job_description_api():
     )
 
     database_result = insert_job(
-    job_title,
-    degree,
-    description,
-    skills
-)
+        job_title,
+        degree,
+        description,
+        skills
+    )
 
     if isinstance(database_result, tuple):
         return database_result
@@ -475,6 +475,7 @@ def score_resume_api():
     result["score_id"] = db_result["score_id"]
     result["candidate_id"] = resume_details["candidate_id"]
     result["job_id"] = job_id
+    result["resume_id"] = resume_id
 
     return jsonify(result)
 
@@ -596,7 +597,7 @@ def insert_score(candidate_id, job_id, score_result, resume_id):
         with conn.cursor() as cursor:
 
             cursor.execute("""
-                INSERT INTO candidate_score (candidate_id, job_id, score)
+                INSERT INTO candidate_score (score, candidate_id, resume_id, job_id)
                 VALUES (%s, %s, %s, %s)
                 RETURNING id;
             """, (score_result["combined_score"], candidate_id, resume_id, job_id,))
@@ -720,45 +721,20 @@ def insert_job(job_title, degree, description, skills):
     try:
         conn = psycopg2.connect(DB_URI)
         with conn.cursor() as cursor:
-
-# title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
-#     position VARCHAR(20) CHECK (position IN ('Intern', 'Junior', 'Senior', 'Manager')),
-#     degree_required VARCHAR(20) CHECK (degree_required IN ('High School', 'Trade School', 'Certificate', 'Associate', 'Bachelor', 'Master', 'Doctorate')),
-#     salary INT,
-# 	employer_id INT,
-#     description TEXT,
+                # INSERT INTO job (title, position, degree_required, salary, employer_id, description)
+                # VALUES (%s, %s, %s, %s, %s, %s)
             cursor.execute("""
-                INSERT INTO job (
-                    title,
-                    position,
-                    degree_required,
-                    salary,
-                    employer_id,
-                    description
-                )
-                VALUES (%s, %s, %s, %s, %s, %s)
+                INSERT INTO job (title, degree_required, description)
+                VALUES (%s, %s, %s)
                 RETURNING id;
-            """, (
-                job_title,
-                "None",
-                degree,
-                0,
-                100000,
-                description
-            ))
+            """, (job_title, degree, description,))
             job_id = cursor.fetchone()[0]
 
             for skill in skills:
                 cursor.execute("""
-                    INSERT INTO job_skill (
-                        name,
-                        job_id
-                    )
+                    INSERT INTO job_skill (name, job_id)
                     VALUES (%s, %s);
-                """, (
-                    skill,
-                    job_id
-                ))
+                """, (skill, job_id,))
 
         conn.commit()
 
