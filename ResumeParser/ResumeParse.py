@@ -7,6 +7,7 @@ import re
 import psycopg2
 import os
 from dotenv import load_dotenv
+from scoring import score_resume
 
 
 app = Flask(__name__)
@@ -349,6 +350,7 @@ def parse_resume_api():
 
         results = {
             "filename": uploaded_file.filename,
+            "resume_text" :extracted_text,
             "email": contact_info["email"],
             "phone": contact_info["phone"],
             "linkedin": contact_info["linkedin"],
@@ -377,7 +379,7 @@ def parse_resume_api():
             "error": str(error)
         }), 500
 
-    
+
 @app.route("/parse-job-description", methods=["POST"])
 def parse_job_description_api():
     data = request.get_json()
@@ -410,7 +412,18 @@ def parse_job_description_api():
         description
     )
 
+    database_result = insert_job(
+    job_title,
+    degree,
+    description,
+    skills
+)
+
+    if isinstance(database_result, tuple):
+        return database_result
+
     results = {
+        "job_id": database_result["job_id"],
         "job_title": job_title,
         "degree": degree,
         "description": description,
@@ -421,7 +434,69 @@ def parse_job_description_api():
     print(results)
 
     return jsonify(results)
-# 
+
+@app.route("/score-resume", methods=["POST"])
+def score_resume_api():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+
+    job_id = data.get("job_id")
+    resume_id = data.get("resume_id")
+
+    if not job_id:
+        return jsonify({"error": "job_id is required"}), 400
+    if not resume_id:
+        return jsonify({"error": "resume_id is required"}), 400
+
+    job_details = get_job_details(job_id)
+    if isinstance(job_details, tuple):
+        return job_details
+
+    resume_details = get_resume_details(resume_id)
+    if isinstance(resume_details, tuple):
+        return resume_details
+
+    try:
+        result = score_resume(
+            job_skills = job_details["skills"],
+            resume_skills = resume_details["skills"],
+            job_degree = job_details["degree_required"],
+            resume_degrees = resume_details["degrees"],
+        )
+    except Exception as error:
+        return jsonify({"error": str(error)}), 500
+
+    db_result = insert_score(resume_details["candidate_id"], job_id, result)
+    if isinstance(db_result, tuple):
+        return db_result
+
+    result["score_id"] = db_result["score_id"]
+    result["candidate_id"] = resume_details["candidate_id"]
+    result["job_id"] = job_id
+
+    return jsonify(result)
+
+@app.route("/ranking", methods=["GET"])
+def ranking_api():
+    result = get_ranking()
+
+    if isinstance(result, tuple):
+        return result
+
+    report = [
+        {
+            "candidate_id": row[0],
+            "candidate_name": row[1],
+            "job_id": row[2],
+            "score": float(row[3]),
+        }
+        for row in result["report"]
+    ]
+
+    return jsonify({"report": report})
+
 load_dotenv("database/.env")
 DEFAULT_URI = "postgresql://postgres:Jn&3Tv5a8KJkDn2@db.sbowuvozgfrjsezqiqfa.supabase.co:5432/postgres"
 DB_URI = os.getenv("DATABASE_URI", DEFAULT_URI)
@@ -514,6 +589,91 @@ def insert_data(data):
         if conn is not None:
             conn.close()
 
+def insert_score(candidate_id, job_id, score_result):
+    conn = None
+    try:
+        conn = psycopg2.connect(DB_URI)
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO candidate_score (candidate_id, job_id, score)
+                VALUES (%s, %s, %s)
+                RETURNING id;
+            """, (candidate_id, job_id, score_result["combined_score"]))
+            score_id = cursor.fetchone()[0]
+            conn.commit()
+            return {"score_id": score_id}
+    except Exception as error:
+        if conn is not None:
+            conn.rollback()
+        return jsonify({"error": str(error)}), 500
+    finally:
+        if conn is not None:
+            conn.close()
+
+def get_job_details(job_id):
+    conn = None
+    try:
+        conn = psycopg2.connect(DB_URI)
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                SELECT degree_required FROM job WHERE id = %s;
+            """, (job_id,))
+            row = cursor.fetchone()
+
+            if row is None:
+                return jsonify({"error": "Job not found"}), 404
+
+            cursor.execute("""
+                SELECT name FROM job_skill WHERE job_id = %s;
+            """, (job_id,))
+            skills = [r[0] for r in cursor.fetchall()]
+
+            return {"degree_required": row[0], "skills": skills}
+
+    except Exception as error:
+        return jsonify({"error": str(error)}), 500
+    finally:
+        if conn is not None:
+            conn.close()
+
+
+def get_resume_details(resume_id):
+    conn = None
+    try:
+        conn = psycopg2.connect(DB_URI)
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                SELECT candidate_id FROM resume WHERE id = %s;
+            """, (resume_id,))
+            row = cursor.fetchone()
+
+            if row is None:
+                return jsonify({"error": "Resume not found"}), 404
+
+            candidate_id = row[0]
+
+            cursor.execute("""
+                SELECT name FROM skill WHERE resume_id = %s;
+            """, (resume_id,))
+            skills = [r[0] for r in cursor.fetchall()]
+
+            cursor.execute("""
+                SELECT degree FROM education WHERE resume_id = %s AND degree IS NOT NULL;
+            """, (resume_id,))
+            degrees = [r[0] for r in cursor.fetchall()]
+
+            return {
+                "candidate_id": candidate_id,
+                "skills": skills,
+                "degrees": degrees,
+            }
+
+    except Exception as error:
+        return jsonify({"error": str(error)}), 500
+    finally:
+        if conn is not None:
+            conn.close()
+
 def get_ranking():
     conn = None
     try:
@@ -552,6 +712,58 @@ def get_ranking():
         if conn is not None:
             conn.close()
 
+def insert_job(job_title, degree, description, skills):
+    conn = None
+
+    try:
+        conn = psycopg2.connect(DB_URI)
+
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO job (
+                    title,
+                    degree_required,
+                    description
+                )
+                VALUES (%s, %s, %s)
+                RETURNING id;
+            """, (
+                job_title,
+                degree,
+                description
+            ))
+
+            job_id = cursor.fetchone()[0]
+
+            for skill in skills:
+                cursor.execute("""
+                    INSERT INTO job_skill (
+                        name,
+                        job_id
+                    )
+                    VALUES (%s, %s);
+                """, (
+                    skill,
+                    job_id
+                ))
+
+        conn.commit()
+
+        return {
+            "job_id": job_id
+        }
+
+    except Exception as error:
+        if conn is not None:
+            conn.rollback()
+
+        return jsonify({
+            "error": str(error)
+        }), 500
+
+    finally:
+        if conn is not None:
+            conn.close()
 
 if __name__ == "__main__":
     app.run(debug=True)
