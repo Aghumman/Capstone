@@ -16,10 +16,6 @@ SUPPORTED_LABELS = {
     "DEGREE",
 }
 
-# These match your Label Studio configuration:
-#
-# <Labels name="label" toName="text">
-# <Text name="text" value="$text"/>
 FROM_NAME = "label"
 TO_NAME = "text"
 
