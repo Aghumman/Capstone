@@ -1,9 +1,11 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, send_from_directory
 from pathlib import Path
+from werkzeug.utils import secure_filename
 import pdfplumber
 from docx import Document
 import spacy
 import re
+import uuid
 
 
 app = Flask(__name__)
@@ -14,7 +16,8 @@ UPLOAD_FOLDER = BASE_DIR / "uploads"
 UPLOAD_FOLDER.mkdir(exist_ok=True)
 
 MODEL_PATH = (
-    BASE_DIR
+    BASE_DIR.parent
+    / "ResumeParser"
     / "training_model5"
     / "model-best"
 )
@@ -34,11 +37,18 @@ SUPPORTED_LABELS = [
 ]
 
 
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return response
+
+
 def clean_text(text):
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
-
     return text.strip()
 
 
@@ -77,9 +87,7 @@ def parse_resume(file_path):
     if extension == ".docx":
         return parse_docx(file_path)
 
-    raise ValueError(
-        "Unsupported file type. Please upload a PDF or DOCX."
-    )
+    raise ValueError("Unsupported file type. Please upload a PDF or DOCX.")
 
 
 def tokenize_text(text):
@@ -102,7 +110,6 @@ def extract_email(text):
     )
 
     match = re.search(pattern, text)
-
     return match.group() if match else None
 
 
@@ -114,7 +121,6 @@ def extract_phone(text):
     )
 
     match = re.search(pattern, text)
-
     return match.group() if match else None
 
 
@@ -127,7 +133,6 @@ def extract_linkedin(text):
     )
 
     match = re.search(pattern, text)
-
     return match.group() if match else None
 
 
@@ -140,7 +145,6 @@ def extract_github(text):
     )
 
     match = re.search(pattern, text)
-
     return match.group() if match else None
 
 
@@ -183,11 +187,25 @@ def predict_resume_entities(text):
         results[entity.label_].append(entity.text)
 
     for label in results:
-        results[label] = remove_duplicates(
-            results[label]
-        )
+        results[label] = remove_duplicates(results[label])
 
     return results
+
+
+def save_uploaded_resume(uploaded_file):
+    original_name = secure_filename(uploaded_file.filename)
+    extension = Path(original_name).suffix.lower()
+
+    unique_name = f"{uuid.uuid4().hex}{extension}"
+    file_path = UPLOAD_FOLDER / unique_name
+    uploaded_file.save(file_path)
+
+    return original_name, unique_name, file_path
+
+
+@app.route("/uploads/<path:filename>")
+def uploaded_resume(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -198,7 +216,6 @@ def index():
     entities = {}
 
     if request.method == "POST":
-
         if "resume" not in request.files:
             return render_template(
                 "index.html",
@@ -219,58 +236,30 @@ def index():
                 entities={},
             )
 
-        file_extension = Path(
-            uploaded_file.filename
-        ).suffix.lower()
+        file_extension = Path(uploaded_file.filename).suffix.lower()
 
         if file_extension not in [".pdf", ".docx"]:
             return "Only PDF and DOCX files are supported."
 
-        file_path = (
-            UPLOAD_FOLDER
-            / uploaded_file.filename
-        )
-
-        uploaded_file.save(file_path)
+        _, _, file_path = save_uploaded_resume(uploaded_file)
 
         try:
             extracted_text = parse_resume(file_path)
-
             tokens = tokenize_text(extracted_text)
-
-            contact_info = extract_contact_info(
-                extracted_text
-            )
-
-            entities = predict_resume_entities(
-                extracted_text
-            )
+            contact_info = extract_contact_info(extracted_text)
+            entities = predict_resume_entities(extracted_text)
 
             print("\nCONTACT INFORMATION:")
             print(contact_info)
 
             print("\nMODEL 5 RESULTS:")
-            print(
-                "JOB_TITLE:",
-                entities["JOB_TITLE"]
-            )
-            print(
-                "SCHOOL:",
-                entities["SCHOOL"]
-            )
-            print(
-                "DEGREE:",
-                entities["DEGREE"]
-            )
-            print(
-                "SKILL:",
-                entities["SKILL"]
-            )
+            print("JOB_TITLE:", entities["JOB_TITLE"])
+            print("SCHOOL:", entities["SCHOOL"])
+            print("DEGREE:", entities["DEGREE"])
+            print("SKILL:", entities["SKILL"])
 
         except Exception as error:
-            return (
-                f"Error processing resume: {error}"
-            )
+            return f"Error processing resume: {error}"
 
     return render_template(
         "index.html",
@@ -281,61 +270,46 @@ def index():
     )
 
 
-@app.route("/parse-resume", methods=["POST"])
+# This is the exact endpoint SeekerPage.js calls.
+@app.route("/api/parse-resume", methods=["POST", "OPTIONS"])
+@app.route("/parse-resume", methods=["POST", "OPTIONS"])
 def parse_resume_api():
+    if request.method == "OPTIONS":
+        return jsonify({"ok": True}), 200
 
     if "file" not in request.files:
-        return jsonify({
-            "error": "No file uploaded"
-        }), 400
+        return jsonify({"error": "No file uploaded"}), 400
 
     uploaded_file = request.files["file"]
 
     if uploaded_file.filename == "":
-        return jsonify({
-            "error": "No file selected"
-        }), 400
+        return jsonify({"error": "No file selected"}), 400
 
-    file_extension = Path(
-        uploaded_file.filename
-    ).suffix.lower()
+    file_extension = Path(uploaded_file.filename).suffix.lower()
 
     if file_extension not in [".pdf", ".docx"]:
         return jsonify({
-            "error": (
-                "Only PDF and DOCX files are supported."
-            )
+            "error": "Only PDF and DOCX files are supported."
         }), 400
 
-    file_path = (
-        UPLOAD_FOLDER
-        / uploaded_file.filename
-    )
-
     try:
-        uploaded_file.save(file_path)
+        original_name, stored_name, file_path = save_uploaded_resume(uploaded_file)
 
-        extracted_text = parse_resume(
-            file_path
-        )
+        extracted_text = parse_resume(file_path)
 
         if not extracted_text:
+            file_path.unlink(missing_ok=True)
             return jsonify({
-                "error": (
-                    "Could not extract text from resume."
-                )
+                "error": "Could not extract text from resume."
             }), 400
 
-        contact_info = extract_contact_info(
-            extracted_text
-        )
-
-        entities = predict_resume_entities(
-            extracted_text
-        )
+        contact_info = extract_contact_info(extracted_text)
+        entities = predict_resume_entities(extracted_text)
 
         results = {
-            "filename": uploaded_file.filename,
+            "filename": original_name,
+            "stored_filename": stored_name,
+            "file_url": f"http://127.0.0.1:5001/uploads/{stored_name}",
             "email": contact_info["email"],
             "phone": contact_info["phone"],
             "linkedin": contact_info["linkedin"],
@@ -352,10 +326,9 @@ def parse_resume_api():
         return jsonify(results)
 
     except Exception as error:
-        return jsonify({
-            "error": str(error)
-        }), 500
+        return jsonify({"error": str(error)}), 500
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # SeekerPage.js uses http://127.0.0.1:5001
+    app.run(host="127.0.0.1", port=5001, debug=True)

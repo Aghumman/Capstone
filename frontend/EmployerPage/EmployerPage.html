@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Resume Portal - Employer Dashboard</title>
+
+    <link rel="stylesheet" href="../shared/global.css" />
+    <link rel="stylesheet" href="EmployerPage.css" />
+    <link rel="stylesheet" href="../shared/components.css" />
+    <link rel="stylesheet" href="../shared/responsive.css" />
+  </head>
+
+  <body>
+    <!-- Main employer dashboard -->
+
+    <div id="employerDash" class="dashboard">
+      <!-- Navigation -->
+
+      <div class="navbar">
+        <div class="nav-left">
+          <h2 class="portal-title">Resume Portal</h2>
+        </div>
+
+        <div class="nav-right">
+          <span class="user-badge"> 🏢 <b id="employerName"></b> </span>
+
+          <button class="btn-logout" onclick="logout()">Log Out</button>
+        </div>
+      </div>
+
+      <div class="employer-container">
+        <!-- Employer tabs -->
+
+        <div class="employer-tabs">
+          <button
+            class="employer-tab active"
+            onclick="showEmployerTab('candidates')"
+          >
+            Candidates
+
+            <span class="tab-count" id="candidateCount"> 0 </span>
+          </button>
+
+          <button class="employer-tab" onclick="showEmployerTab('saved')">
+            Saved
+
+            <span class="tab-count" id="savedCount"> 0 </span>
+          </button>
+
+          <button class="employer-tab" onclick="showEmployerTab('jobs')">
+            Jobs
+          </button>
+        </div>
+
+        <!-- Candidates tab -->
+
+        <div id="candidatesTab" class="tab-content active">
+          <div class="candidates-layout">
+            <!-- Candidate search and filters -->
+
+            <aside class="candidates-sidebar">
+              <h3>Search</h3>
+
+              <div class="form-group">
+                <label for="searchInput"> Name </label>
+
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Search..."
+                  onkeyup="filterResumes()"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="ratingFilter"> Rating </label>
+
+                <select id="ratingFilter" onchange="filterResumes()">
+                  <option value="">All</option>
+
+                  <option value="5">⭐⭐⭐⭐⭐ 5 stars</option>
+
+                  <option value="4">⭐⭐⭐⭐ 4+</option>
+
+                  <option value="3">⭐⭐⭐ 3+</option>
+
+                  <option value="2">⭐⭐ 2+</option>
+
+                  <option value="1">⭐ 1+</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    id="savedOnly"
+                    onchange="filterResumes()"
+                  />
+
+                  Saved only
+                </label>
+              </div>
+
+              <button class="btn-secondary full-width" onclick="clearFilters()">
+                Clear
+              </button>
+            </aside>
+
+            <!-- Candidate results -->
+
+            <main class="candidates-main">
+              <div class="list-header">
+                <h2>All Candidates</h2>
+              </div>
+
+              <div id="resumeList" class="resume-cards"></div>
+            </main>
+          </div>
+        </div>
+
+        <!-- Saved candidates tab -->
+
+        <div id="savedTab" class="tab-content hidden">
+          <div class="content-card">
+            <h2>Saved Candidates</h2>
+
+            <p class="section-help">
+              Candidates you have saved will appear here.
+            </p>
+
+            <div id="savedList" class="resume-cards">
+              <p class="empty-state">None saved yet</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Jobs tab -->
+
+        <div id="jobsTab" class="tab-content hidden">
+          <!-- Create a job posting -->
+
+          <div class="content-card">
+            <h2>Post a Job</h2>
+
+            <p class="section-help">Create a new job posting for candidates.</p>
+
+            <div class="form-group">
+              <label for="jobTitle"> Job Title </label>
+
+              <input
+                type="text"
+                id="jobTitle"
+                placeholder="e.g., Software Engineer"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="jobDegree"> Required Degree </label>
+
+              <input
+                type="text"
+                id="jobDegree"
+                placeholder="e.g., Bachelor's in Computer Science"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="jobDescription"> Job Description </label>
+
+              <textarea
+                id="jobDescription"
+                rows="8"
+                placeholder="Describe the responsibilities, qualifications, required skills, and experience..."
+              ></textarea>
+            </div>
+
+            <button type="button" class="btn-primary" onclick="postJob()">
+              Post Job
+            </button>
+
+            <div
+              id="jobConfirm"
+              class="success hidden"
+              style="margin-top: 15px"
+            >
+              <div class="alert alert-success">✓ Job posted successfully!</div>
+            </div>
+          </div>
+
+          <!-- Existing employer postings -->
+
+          <div class="content-card" style="margin-top: 30px">
+            <div class="card-header">
+              <div>
+                <h2>Your Job Postings</h2>
+
+                <p class="section-help">
+                  View and manage all jobs you have posted.
+                </p>
+              </div>
+
+              <span id="jobCount" class="tab-count"> 0 </span>
+            </div>
+
+            <!-- Job cards and applicants are rendered by JavaScript -->
+
+            <div id="employerJobList" class="resume-cards">
+              <p class="empty-state">You haven't posted any jobs yet.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Candidate resume modal -->
+
+    <div id="resumemodel" class="model hidden">
+      <div class="model-content">
+        <button class="model-close" onclick="closeResumemodel()">✕</button>
+
+        <div class="model-header">
+          <h2 id="modelUsername"></h2>
+
+          <button
+            class="btn-save-candidate"
+            id="saveBtn"
+            onclick="toggleSaveCandidate()"
+          >
+            ☆ Save
+          </button>
+        </div>
+
+        <div class="model-body">
+          <!-- Employer rating -->
+
+          <div class="form-group">
+            <label> Rate </label>
+
+            <div class="rating-input">
+              <button class="star" onclick="setRating(1)">★</button>
+
+              <button class="star" onclick="setRating(2)">★</button>
+
+              <button class="star" onclick="setRating(3)">★</button>
+
+              <button class="star" onclick="setRating(4)">★</button>
+
+              <button class="star" onclick="setRating(5)">★</button>
+            </div>
+
+            <p class="rating-text" id="ratingText">Click to rate</p>
+          </div>
+
+          <!-- Resume summary -->
+
+          <div class="form-group">
+            <label> Summary </label>
+
+            <p id="modelDesc" class="resume-text"></p>
+          </div>
+
+          <!-- Resume file -->
+
+          <div class="form-group">
+            <label> Resume File </label>
+
+            <div class="file-info">
+              <span id="modelFileName"></span>
+
+              <a id="modelDownloadLink" class="btn-inline" download>
+                ↓ Download
+              </a>
+            </div>
+          </div>
+
+          <!-- Cover letter -->
+
+          <div
+            class="form-group"
+            style="
+              margin-top: 20px;
+              padding-top: 20px;
+              border-top: 1px solid #e0e0e0;
+            "
+          >
+            <label> Cover Letter </label>
+
+            <div id="modelCoverContent">
+              <p id="modelCoverText" class="resume-text"></p>
+
+              <div
+                id="modelCoverFileSection"
+                style="display: none; margin-top: 12px"
+              >
+                <p>
+                  <strong> Cover Letter File: </strong>
+                </p>
+
+                <div class="file-info">
+                  <span id="modelCoverFileName"></span>
+
+                  <a id="modelDownloadCoverLink" class="btn-inline" download>
+                    ↓ Download
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="updated-date" id="modelUpdatedDate"></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="EmployerPage.js"></script>
+  </body>
+</html>

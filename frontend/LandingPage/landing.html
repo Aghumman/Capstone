@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Resume Portal - Landing</title>
+
+    <link rel="stylesheet" href="../shared/global.css" />
+    <link rel="stylesheet" href="landing.css" />
+    <link rel="stylesheet" href="../shared/components.css" />
+    <link rel="stylesheet" href="../shared/responsive.css" />
+  </head>
+
+  <body>
+    <!-- Landing page -->
+
+    <div class="landing-container">
+      <!-- Portal heading -->
+
+      <div class="landing-header">
+        <h1>Resume Portal</h1>
+
+        <p class="landing-subtitle">Find the right fit</p>
+      </div>
+
+      <!-- User role options -->
+
+      <div class="landing-options">
+        <!-- Job seeker option -->
+
+        <div class="landing-card">
+          <div class="card-icon">👤</div>
+
+          <h2>Job Seeker</h2>
+
+          <p>
+            Upload your resume and cover letter. Get discovered by employers.
+          </p>
+
+          <button type="button" class="btn-primary" onclick="goToSeeker()">
+            Get Started
+          </button>
+        </div>
+
+        <!-- Employer option -->
+
+        <div class="landing-card">
+          <div class="card-icon">🏢</div>
+
+          <h2>Employer</h2>
+
+          <p>Browse resumes, rate candidates, and post job opportunities.</p>
+
+          <button type="button" class="btn-primary" onclick="goToEmployer()">
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="landing.js"></script>
+  </body>
+</html>

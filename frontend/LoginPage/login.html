@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Resume Portal - Login</title>
+
+    <link rel="stylesheet" href="../shared/global.css" />
+    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="../shared/components.css" />
+    <link rel="stylesheet" href="../shared/responsive.css" />
+  </head>
+
+  <body>
+    <!-- Login screen -->
+
+    <div id="loginView" class="login-container">
+      <div class="login-box">
+        <h1>Resume Portal</h1>
+
+        <p class="login-subtitle">Find the right fit</p>
+
+        <!-- Account role selection -->
+
+        <div class="role-tabs">
+          <button
+            id="tabSeeker"
+            type="button"
+            class="role-tab active"
+            onclick="setRole('seeker')"
+          >
+            <span class="tab-icon"> 👤 </span>
+
+            Seeker
+          </button>
+
+          <button
+            id="tabEmployer"
+            type="button"
+            class="role-tab"
+            onclick="setRole('employer')"
+          >
+            <span class="tab-icon"> 🏢 </span>
+
+            Employer
+          </button>
+        </div>
+
+        <!-- Login information -->
+
+        <div class="form-group">
+          <label for="fullName"> Full Name </label>
+
+          <input type="text" id="fullName" />
+        </div>
+
+        <div class="form-group">
+          <label for="username"> Username </label>
+
+          <input type="text" id="username" />
+        </div>
+
+        <div class="form-group">
+          <label for="password"> Password </label>
+
+          <input type="password" id="password" />
+        </div>
+
+        <button type="button" class="btn-primary" onclick="login()">
+          Log In
+        </button>
+
+        <!-- Login errors -->
+
+        <div class="error hidden" id="loginError"></div>
+
+        <p class="login-help">
+          First time? Create an account with any username and password.
+        </p>
+      </div>
+    </div>
+
+    <script src="login.js"></script>
+  </body>
+</html>

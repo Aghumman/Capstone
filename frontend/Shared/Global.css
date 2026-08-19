@@ -1,0 +1,122 @@
+/* Global reset and base layout */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: #fafafa;
+  color: #333;
+
+  font-family: Georgia, serif;
+  font-size: 16px;
+}
+
+body {
+  line-height: 1.5;
+}
+
+/* Typography */
+
+h1 {
+  margin-bottom: 8px;
+
+  font-size: 36px;
+  font-weight: normal;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  margin-bottom: 12px;
+
+  color: #222;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+h3 {
+  margin-bottom: 8px;
+
+  font-size: 14px;
+  font-weight: bold;
+}
+
+p {
+  margin-bottom: 12px;
+}
+
+a {
+  color: #006bb5;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Form controls */
+
+label {
+  display: block;
+  margin-bottom: 4px;
+
+  color: #222;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+
+  border: 1px solid #ccc;
+  color: #333;
+
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border: 1px solid #333;
+  box-shadow: none;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  border: none;
+
+  cursor: pointer;
+
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+/* Reusable utility classes */
+
+.hidden {
+  display: none !important;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}

@@ -1,0 +1,155 @@
+/* Tablet and smaller screens */
+
+@media (max-width: 768px) {
+  /* Candidate layout */
+
+  .candidates-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* Dashboard tabs */
+
+  .seeker-tabs,
+  .employer-tabs {
+    flex-wrap: wrap;
+  }
+
+  /* Resume cards */
+
+  .resume-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Landing page options */
+
+  .landing-options {
+    grid-template-columns: 1fr;
+  }
+
+  /* Navigation */
+
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .nav-left,
+  .nav-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Login */
+
+  .login-box {
+    padding: 20px;
+  }
+
+  /* Dashboard containers */
+
+  .seeker-container,
+  .employer-container {
+    padding: 20px;
+  }
+
+  /* Typography */
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  /* Card actions */
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .card-actions {
+    width: 100%;
+  }
+
+  .card-actions button {
+    flex: 1;
+  }
+
+  /* Modal */
+
+  .model-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .btn-save-candidate {
+    align-self: flex-start;
+  }
+}
+
+/* Mobile screens */
+
+@media (max-width: 480px) {
+  /* Login */
+
+  .login-container {
+    padding: 12px;
+  }
+
+  .login-box {
+    padding: 20px;
+  }
+
+  /* Landing page */
+
+  .landing-container {
+    padding: 12px;
+  }
+
+  .landing-card {
+    padding: 20px;
+  }
+
+  /* Role selection */
+
+  .role-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  /* Resume cards */
+
+  .resume-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Content cards */
+
+  .content-card {
+    padding: 20px;
+  }
+
+  /* Navigation */
+
+  .navbar {
+    padding: 12px;
+  }
+
+  .user-badge {
+    font-size: 12px;
+  }
+
+  .portal-title {
+    font-size: 14px;
+  }
+
+  /* Typography */
+
+  h1 {
+    font-size: 20px;
+  }
+}

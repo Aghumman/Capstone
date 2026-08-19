@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Resume Portal - Seeker Dashboard</title>
+
+    <link rel="stylesheet" href="../shared/global.css" />
+    <link rel="stylesheet" href="SeekerPage.css" />
+    <link rel="stylesheet" href="../shared/components.css" />
+    <link rel="stylesheet" href="../shared/responsive.css" />
+  </head>
+
+  <body>
+    <!-- Application confirmation -->
+
+    <div id="applicationSavedNotice" class="application-saved-notice hidden">
+      <span class="application-saved-message">
+        ✓ Your application has been saved and submitted successfully!
+      </span>
+    </div>
+
+    <!-- Main seeker dashboard -->
+
+    <div id="seekerDash" class="dashboard">
+      <!-- Navigation -->
+
+      <div class="navbar">
+        <div class="nav-left">
+          <h2 class="portal-title">Resume Portal</h2>
+        </div>
+
+        <div class="nav-right">
+          <span class="user-badge">
+            👤
+            <b id="seekerName"></b>
+          </span>
+
+          <button type="button" class="btn-logout" onclick="logout()">
+            Log Out
+          </button>
+        </div>
+      </div>
+
+      <div class="seeker-container">
+        <!-- Dashboard tabs -->
+
+        <div class="seeker-tabs">
+          <button
+            type="button"
+            class="seeker-tab active"
+            onclick="showSeekerTab('upload')"
+          >
+            Upload
+          </button>
+
+          <button
+            type="button"
+            class="seeker-tab"
+            onclick="showSeekerTab('view')"
+          >
+            View
+          </button>
+
+          <button
+            type="button"
+            class="seeker-tab"
+            onclick="showSeekerTab('jobs')"
+          >
+            Jobs
+          </button>
+        </div>
+
+        <!-- Upload tab -->
+
+        <div id="uploadTab" class="tab-content active">
+          <div class="content-card">
+            <h2>Submit Your Resume</h2>
+
+            <p class="section-help">
+              Upload a new resume to be analyzed by our resume parser. You can
+              save multiple resumes to your account.
+            </p>
+
+            <!-- Resume summary -->
+
+            <div class="form-group">
+              <label for="seekerDesc"> Summary </label>
+
+              <textarea
+                id="seekerDesc"
+                placeholder="Your experience, skills, and the type of role you're looking for..."
+              ></textarea>
+            </div>
+
+            <!-- Resume upload -->
+
+            <div class="form-group">
+              <label for="seekerFile"> Resume File </label>
+
+              <div
+                class="file-upload"
+                onclick="document.getElementById('seekerFile').click()"
+              >
+                <input
+                  type="file"
+                  id="seekerFile"
+                  accept=".pdf,.docx"
+                  onchange="updateFileLabel()"
+                  style="display: none"
+                />
+
+                <p class="file-label" id="fileLabelText">
+                  📄 Choose a PDF or Word file
+                </p>
+              </div>
+            </div>
+
+            <!-- Optional cover letter -->
+
+            <div
+              style="
+                margin-top: 32px;
+                padding-top: 32px;
+                border-top: 1px solid #e0e0e0;
+              "
+            >
+              <h2>Cover Letter</h2>
+
+              <p class="section-help">Optional</p>
+
+              <div class="form-group">
+                <label for="coverLetterText"> Cover Letter </label>
+
+                <textarea
+                  id="coverLetterText"
+                  placeholder="Dear Hiring Manager..."
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="coverLetterFile"> Or upload a file </label>
+
+                <div
+                  class="file-upload"
+                  onclick="document.getElementById('coverLetterFile').click()"
+                >
+                  <input
+                    type="file"
+                    id="coverLetterFile"
+                    accept=".pdf,.doc,.docx,.txt"
+                    onchange="updateCoverLabel()"
+                    style="display: none"
+                  />
+
+                  <p class="file-label" id="coverLabelText">
+                    📄 Choose a file (optional)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              id="saveResumeButton"
+              type="button"
+              class="btn-primary"
+              onclick="submitResume()"
+            >
+              Save New Resume
+            </button>
+
+            <!-- Resume save confirmation -->
+
+            <div class="success hidden" id="seekerConfirm">
+              <div class="alert alert-success">
+                ✓ Resume saved and parsed successfully!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View tab -->
+
+        <div id="viewTab" class="tab-content hidden">
+          <!-- Saved resume library -->
+
+          <div class="content-card" style="margin-bottom: 24px">
+            <div class="card-header">
+              <div>
+                <h2>Your Resumes</h2>
+
+                <p class="section-help">
+                  Select a resume to view, edit, delete, or use for a job
+                  application.
+                </p>
+              </div>
+
+              <button
+                class="btn-primary"
+                type="button"
+                onclick="startNewResume()"
+              >
+                + Add Resume
+              </button>
+            </div>
+
+            <div
+              id="resumeLibrary"
+              class="resume-cards"
+              style="margin-top: 18px"
+            ></div>
+          </div>
+
+          <!-- Selected resume details -->
+
+          <div id="resumePreview" class="resume-preview hidden">
+            <div class="content-card">
+              <div class="card-header">
+                <h2>Selected Resume</h2>
+
+                <div class="card-actions">
+                  <button
+                    type="button"
+                    class="btn-secondary"
+                    onclick="editResume()"
+                  >
+                    ✏️ Edit
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn-danger"
+                    onclick="deleteResume()"
+                  >
+                    🗑️ Delete
+                  </button>
+                </div>
+              </div>
+
+              <div class="resume-content">
+                <h3>Summary</h3>
+
+                <p id="previewDesc"></p>
+
+                <h3>Resume File</h3>
+
+                <div class="file-info">
+                  <span id="previewFileName"></span>
+
+                  <a id="downloadLink" class="btn-inline" download>
+                    ↓ Download
+                  </a>
+                </div>
+
+                <h3 style="margin-top: 20px">Cover Letter</h3>
+
+                <p id="previewCoverText" class="resume-text"></p>
+              </div>
+
+              <p class="updated-date" id="updatedDate"></p>
+            </div>
+
+            <!-- Parsed resume information -->
+
+            <div class="content-card" style="margin-top: 24px">
+              <h2>Parsed Resume Information</h2>
+
+              <p class="section-help">
+                Information detected from your uploaded resume.
+              </p>
+
+              <div class="form-group">
+                <label> Email </label>
+
+                <p id="parsedEmail">Not found</p>
+              </div>
+
+              <div class="form-group">
+                <label> Phone </label>
+
+                <p id="parsedPhone">Not found</p>
+              </div>
+
+              <div class="form-group">
+                <label> LinkedIn </label>
+
+                <p id="parsedLinkedin">Not found</p>
+              </div>
+
+              <div class="form-group">
+                <label> GitHub </label>
+
+                <p id="parsedGithub">Not found</p>
+              </div>
+
+              <div class="form-group">
+                <label> Job Titles </label>
+
+                <p id="parsedJobTitles">None detected</p>
+              </div>
+
+              <div class="form-group">
+                <label> Schools </label>
+
+                <p id="parsedSchools">None detected</p>
+              </div>
+
+              <div class="form-group">
+                <label> Degrees </label>
+
+                <p id="parsedDegrees">None detected</p>
+              </div>
+
+              <div class="form-group">
+                <label> Skills </label>
+
+                <p id="parsedSkills">None detected</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty resume state -->
+
+          <div id="noResumeMsg" class="content-card center-content">
+            <p class="empty-state">No resumes yet</p>
+
+            <p class="section-help">
+              Click + Add Resume to upload your first resume.
+            </p>
+          </div>
+        </div>
+
+        <!-- Jobs tab -->
+
+        <div id="jobsTab" class="tab-content hidden">
+          <div class="content-card">
+            <h2>Job Board</h2>
+
+            <p class="section-help">
+              Browse opportunities posted by employers and choose which saved
+              resume you want to submit.
+            </p>
+
+            <div id="seekerJobList" class="resume-cards"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Job application modal -->
+
+    <div id="jobApplicationModel" class="model hidden">
+      <div class="model-content">
+        <button type="button" class="model-close" onclick="closeJobModel()">
+          ✕
+        </button>
+
+        <div class="model-header">
+          <div>
+            <h2 id="jobModelTitle">Job</h2>
+
+            <p class="section-help" id="jobModelEmployer"></p>
+          </div>
+        </div>
+
+        <div class="model-body">
+          <!-- Job information -->
+
+          <div class="form-group">
+            <label> Required Degree </label>
+
+            <p id="jobModelDegree"></p>
+          </div>
+
+          <div class="form-group">
+            <label> Job Description </label>
+
+            <p id="jobModelDescription" class="resume-text"></p>
+          </div>
+
+          <div class="form-group">
+            <label> Skills </label>
+
+            <p id="jobModelSkills">None detected</p>
+          </div>
+
+          <!-- Application form -->
+
+          <div
+            style="
+              margin-top: 25px;
+              padding-top: 20px;
+              border-top: 1px solid #e0e0e0;
+            "
+          >
+            <h3>Your Application</h3>
+
+            <p class="section-help" id="jobApplicationResumeMessage"></p>
+
+            <div class="form-group" style="margin-top: 15px">
+              <label for="jobResumeSelect"> Choose Resume </label>
+
+              <select
+                id="jobResumeSelect"
+                style="
+                  width: 100%;
+                  padding: 12px;
+                  border: 1px solid #ddd;
+                  border-radius: 6px;
+                "
+              ></select>
+            </div>
+
+            <button
+              id="applyJobButton"
+              type="button"
+              class="btn-primary"
+              style="margin-top: 20px"
+              onclick="submitJobApplication()"
+            >
+              Submit Resume
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resume file preview -->
+
+    <div id="resumeViewerContainer" style="display: none; margin-top: 20px">
+      <iframe
+        id="resumeViewer"
+        style="width: 100%; height: 700px; border: 1px solid #ddd"
+      ></iframe>
+
+      <p id="resumeNoPreview" style="display: none">
+        Preview unavailable.
+
+        <a id="resumeDownloadAlt" download> Download Resume </a>
+      </p>
+    </div>
+
+    <script src="SeekerPage.js"></script>
+  </body>
+</html>
