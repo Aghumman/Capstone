@@ -526,7 +526,7 @@ def insert_data(data):
             """, (email,))
             candidate = cursor.fetchone()
 
-            # take candidate id is exist, else create new candidate and get id
+            # take candidate id if candidate exist, else create new candidate and get id
             if candidate:
                 candidate_id = candidate[0]
             else:
@@ -551,14 +551,13 @@ def insert_data(data):
                     INSERT INTO skill (name, resume_id)
                     VALUES (%s, %s)
                     RETURNING id;
-                """, (skill, resume_id,))
+                """, (skill, resume_id))
 
             for job_title in job_titles:
                 cursor.execute("""
                     INSERT INTO resume_job_title (title, resume_id)
                     VALUES (%s, %s);
                 """, (job_title, resume_id))    
-
 
             max_education_count = max(len(schools), len(degrees))
 
@@ -600,7 +599,7 @@ def insert_score(candidate_id, job_id, score_result, resume_id):
                 INSERT INTO candidate_score (score, candidate_id, resume_id, job_id)
                 VALUES (%s, %s, %s, %s)
                 RETURNING id;
-            """, (score_result["combined_score"], candidate_id, resume_id, job_id,))
+            """, (score_result["combined_score"], candidate_id, resume_id, job_id))
             score_id = cursor.fetchone()[0]
             conn.commit()
             return {"score_id": score_id}
@@ -619,6 +618,7 @@ def get_job_details(job_id):
     try:
         conn = psycopg2.connect(DB_URI)
         with conn.cursor() as cursor:
+
             cursor.execute("""
                 SELECT degree_required FROM job WHERE id = %s;
             """, (job_id,))
@@ -628,7 +628,8 @@ def get_job_details(job_id):
                 return jsonify({"error": "Job not found"}), 404
 
             cursor.execute("""
-                SELECT name FROM job_skill WHERE job_id = %s;
+                SELECT name AS skill
+                FROM job_skill WHERE job_id = %s;
             """, (job_id,))
             skills = [r[0] for r in cursor.fetchall()]
 
@@ -646,6 +647,7 @@ def get_resume_details(resume_id):
     try:
         conn = psycopg2.connect(DB_URI)
         with conn.cursor() as cursor:
+
             cursor.execute("""
                 SELECT candidate_id FROM resume WHERE id = %s;
             """, (resume_id,))
@@ -657,7 +659,8 @@ def get_resume_details(resume_id):
             candidate_id = row[0]
 
             cursor.execute("""
-                SELECT name FROM skill WHERE resume_id = %s;
+                SELECT name AS skill
+                FROM skill WHERE resume_id = %s;
             """, (resume_id,))
             skills = [r[0] for r in cursor.fetchall()]
 
@@ -687,8 +690,8 @@ def get_ranking():
             # get ranking report from database
             cursor.execute("""
                 SELECT
-                    candidate.id,
-                    candidate.name,
+                    candidate.id AS candidate_id,
+                    candidate.name AS candidate_name,
                     candidate_score.job_id,
                     candidate_score.score
                 FROM candidate_score
@@ -721,20 +724,19 @@ def insert_job(job_title, degree, description, skills):
     try:
         conn = psycopg2.connect(DB_URI)
         with conn.cursor() as cursor:
-                # INSERT INTO job (title, position, degree_required, salary, employer_id, description)
-                # VALUES (%s, %s, %s, %s, %s, %s)
+
             cursor.execute("""
                 INSERT INTO job (title, degree_required, description)
                 VALUES (%s, %s, %s)
                 RETURNING id;
-            """, (job_title, degree, description,))
+            """, (job_title, degree, description))
             job_id = cursor.fetchone()[0]
 
             for skill in skills:
                 cursor.execute("""
                     INSERT INTO job_skill (name, job_id)
                     VALUES (%s, %s);
-                """, (skill, job_id,))
+                """, (skill, job_id))
 
         conn.commit()
 
