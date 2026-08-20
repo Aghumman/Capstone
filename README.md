@@ -123,8 +123,8 @@ Run the backend:
 
 - **Areeba Ghumman — Resume Parsing**
   - PDF and DOCX format handling
-  - Text extraction
-  - Resume section parsing
+  - Train model to categorize resume text
+  - Job Description Parsing
 
 - **Bonnie Lei — Database**
   - Database schema
@@ -132,6 +132,5 @@ Run the backend:
   - Ranking report
 
 - **Oluwafemi Olosunde — Machine Learning & Scoring**
-  - Skill extraction
   - TF-IDF and cosine similarity scoring
   - Feedback generation
