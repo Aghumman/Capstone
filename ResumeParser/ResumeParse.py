@@ -499,8 +499,7 @@ def ranking_api():
     return jsonify({"report": report})
 
 load_dotenv("database/.env")
-DEFAULT_URI = "postgresql://postgres:Jn&3Tv5a8KJkDn2@db.sbowuvozgfrjsezqiqfa.supabase.co:5432/postgres"
-DB_URI = os.getenv("DATABASE_URI", DEFAULT_URI)
+DB_URI = os.getenv("DATABASE_URI")
 
 def insert_data(data):
     if hasattr(data, 'get_json'):
@@ -560,7 +559,6 @@ def insert_data(data):
                 """, (job_title, resume_id))    
 
             max_education_count = max(len(schools), len(degrees))
-
             for i in range(max_education_count):
                 school = schools[i] if i < len(schools) else None
                 degree = degrees[i] if i < len(degrees) else None
@@ -580,10 +578,7 @@ def insert_data(data):
     except Exception as error:
         if conn is not None:
             conn.rollback()
-
-        return jsonify({
-            "error": str(error)
-        }), 500
+        return jsonify({"error": str(error)}), 500
 
     finally:
         if conn is not None:
@@ -710,10 +705,7 @@ def get_ranking():
     except Exception as error:
         if conn is not None:
             conn.rollback()
-
-        return jsonify({
-            "error": str(error)
-        }), 500
+        return jsonify({"error": str(error)}), 500
 
     finally:
         if conn is not None:

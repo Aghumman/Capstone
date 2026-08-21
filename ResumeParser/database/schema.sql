@@ -49,6 +49,7 @@ CREATE TABLE employer (
         START WITH 100000
         MINVALUE 100000
         MAXVALUE 199999
+        CYCLE
     ) PRIMARY KEY,
     company VARCHAR(50),
     location VARCHAR(50)
@@ -61,6 +62,7 @@ CREATE TABLE job (
         START WITH 200000
         MINVALUE 200000
         MAXVALUE 299999
+        CYCLE
     ) PRIMARY KEY,
     title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
     position VARCHAR(20) CHECK (position IN ('Intern', 'Junior', 'Senior', 'Manager')),
@@ -78,6 +80,7 @@ CREATE TABLE candidate (
         START WITH 300000
         MINVALUE 300000
         MAXVALUE 399999
+        CYCLE
     ) PRIMARY KEY,
     name VARCHAR(100),
     phone VARCHAR(20),
@@ -91,6 +94,7 @@ CREATE TABLE resume (
         START WITH 400000
         MINVALUE 400000
         MAXVALUE 499999
+        CYCLE
     ) PRIMARY KEY,
     candidate_id INT NOT NULL,
     FOREIGN KEY(candidate_id) REFERENCES candidate(id)
@@ -103,6 +107,7 @@ CREATE TABLE resume_job_title (
         START WITH 700000
         MINVALUE 700000
         MAXVALUE 799999
+        CYCLE
     ) PRIMARY KEY,
     title VARCHAR(150) NOT NULL DEFAULT 'Not Provided',
     resume_id INT NOT NULL,
@@ -115,6 +120,7 @@ CREATE TABLE job_skill (
         START WITH 800000
         MINVALUE 800000
         MAXVALUE 899999
+        CYCLE
     ) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     job_id INT NOT NULL,
@@ -128,6 +134,7 @@ CREATE TABLE candidate_score (
         START WITH 500000
         MINVALUE 500000
         MAXVALUE 599999
+        CYCLE
     ) PRIMARY KEY,
     score FLOAT NOT NULL,
     candidate_id INT NOT NULL,
@@ -145,6 +152,7 @@ CREATE TABLE education (
         START WITH 600000
         MINVALUE 600000
         MAXVALUE 699999
+        CYCLE
     ) PRIMARY KEY,
     school VARCHAR(100),
     degree VARCHAR(150),
@@ -159,6 +167,7 @@ CREATE TABLE skill (
         START WITH 1000000
         MINVALUE 1000000
         MAXVALUE 1999999
+        CYCLE
     ) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     resume_id INT NOT NULL,

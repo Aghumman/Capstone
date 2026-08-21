@@ -1,0 +1,50 @@
+name: Keep Database Alive
+
+on:
+  schedule:
+    # Runs every Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+  # Allows you to trigger it manually from the Actions tab anytime
+  workflow_dispatch:
+
+jobs:
+  ping-database:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install psycopg2-binary python-dotenv
+
+      - name: Run ping script
+        env:
+          DATABASE_URI: ${{ secrets.DB_URI }}
+        run: |
+          python -c "
+          import os
+          import psycopg2
+
+          db_uri = os.getenv('DATABASE_URI')
+          if not db_uri:
+              print('❌ Error: DATABASE_URI secret is missing!')
+              exit(1)
+
+          try:
+              conn = psycopg2.connect(db_uri)
+              cursor = conn.cursor()
+              cursor.execute('SELECT 1;')
+              result = cursor.fetchone()
+              cursor.close()
+              conn.close()
+              print('✅ Success! Database pinged successfully:', result)
+          except Exception as e:
+              print('❌ Failed to connect to dupabase:', e)
+              exit(1)
+          "
